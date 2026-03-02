@@ -64,8 +64,10 @@ services:
       dockerfile: catalog_service/Dockerfile
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/ecommers
+      - AI_SERVICE_URL=http://ai_service:8000
     depends_on:
       - db
+      - ai_service
     ports:
       - "8002:8000"
 
@@ -75,8 +77,10 @@ services:
       dockerfile: cart_service/Dockerfile
     environment:
       - REDIS_URL=redis://redis:6379/0
+      - AI_SERVICE_URL=http://ai_service:8000
     depends_on:
       - redis
+      - ai_service
     ports:
       - "8003:8000"
 
@@ -89,12 +93,25 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_ORDERS_TOPIC=orders
+      - AI_SERVICE_URL=http://ai_service:8000
     depends_on:
       - db
       - redis
       - kafka
+      - ai_service
     ports:
       - "8004:8000"
+
+  ai_service:
+    build:
+      context: .
+      dockerfile: ai_service/Dockerfile
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/ecommers
+    depends_on:
+      - db
+    ports:
+      - "8006:8000"
 
   notification_service:
     build:

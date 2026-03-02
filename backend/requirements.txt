@@ -18,3 +18,4 @@ asyncpg
 passlib
 redis
 aiokafka
+httpx

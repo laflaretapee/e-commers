@@ -20,8 +20,11 @@ const CatalogPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    catalogApi.get<Product[]>("/products").then((res) => setProducts(res.data));
-  }, []);
+    const params = user ? { user_id: user.id } : undefined;
+    catalogApi
+      .get<Product[]>("/products", { params })
+      .then((res) => setProducts(res.data));
+  }, [user]);
 
   const addToCart = async (p: Product) => {
     if (!user) {

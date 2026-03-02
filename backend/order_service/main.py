@@ -1,7 +1,9 @@
 import os
 import json
+from typing import Any
 from typing import List, Optional
 
+import httpx
 import redis.asyncio as redis
 from aiokafka import AIOKafkaProducer
 from fastapi import FastAPI, Depends, HTTPException, Query, status
@@ -16,6 +18,10 @@ from .schemas import CartItem, OrderOut, OrderItemOut
 REDIS_URL = os.getenv("REDIS_URL", "redis://redis:6379/0")
 KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
 KAFKA_ORDERS_TOPIC = os.getenv("KAFKA_ORDERS_TOPIC", "orders")
+AI_SERVICE_URL = os.getenv("AI_SERVICE_URL", "http://ai_service:8000")
+AI_TIMEOUT_SECONDS = float(os.getenv("AI_TIMEOUT_SECONDS", "2.5"))
+
+
 
 app = FastAPI(
     title="Order Service",
@@ -42,6 +48,32 @@ redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 
 # Kafka producer создаём на старте
 kafka_producer: Optional[AIOKafkaProducer] = None
+
+
+async def _post_ai(path: str, payload: dict[str, Any]) -> dict[str, Any] | None:
+    try:
+        async with httpx.AsyncClient(timeout=AI_TIMEOUT_SECONDS) as client:
+            response = await client.post(f"{AI_SERVICE_URL}{path}", json=payload)
+            response.raise_for_status()
+            return response.json()
+    except Exception as exc:
+        print(f"[order_service] AI POST {path} failed: {exc}")
+        return None
+
+
+async def _send_order_created_event(user_id: int, order_id: int, items: List[CartItem], total_amount: float) -> None:
+    await _post_ai(
+        "/events",
+        {
+            "event_type": "OrderCreated",
+            "user_id": user_id,
+            "order_id": order_id,
+            "payload": {
+                "items": [item.model_dump() for item in items],
+                "total_amount": total_amount,
+            },
+        },
+    )
 
 
 def _cart_key(user_id: int) -> str:
@@ -148,10 +180,18 @@ async def create_order_from_cart(
         except Exception as e:
             print(f"[order_service] Kafka send error: {e}")
 
-    # 6. Очищаем корзину
+    # 6. Передаём факт заказа в AI service для обучения рекомендаций
+    await _send_order_created_event(
+        user_id=user_id,
+        order_id=db_order.id,
+        items=items,
+        total_amount=total_amount,
+    )
+
+    # 7. Очищаем корзину
     await _clear_cart(user_id)
 
-    # 7. Формируем ответ из того, что в БД
+    # 8. Формируем ответ из того, что в БД
     return OrderOut(
         id=db_order.id,
         user_id=user_id,

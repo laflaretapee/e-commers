@@ -8,9 +8,16 @@ type CartItem = {
   price: number;
 };
 
+type RecommendationItem = {
+  item_id: number;
+  score: number;
+  reason?: string | null;
+};
+
 type Cart = {
   user_id: number;
   items: CartItem[];
+  recommendations: RecommendationItem[];
 };
 
 const CartPage: React.FC = () => {
@@ -65,6 +72,23 @@ const CartPage: React.FC = () => {
         <div className="card-subtitle">Итого</div>
         <div style={{ fontWeight: 600 }}>{total} ₽</div>
       </div>
+
+      {cart.recommendations.length > 0 && (
+        <>
+          <div className="divider" />
+          <div className="card-subtitle" style={{ marginBottom: 8 }}>
+            Рекомендации AI
+          </div>
+          <ul className="list-clean" style={{ marginBottom: 10 }}>
+            {cart.recommendations.map((rec) => (
+              <li key={rec.item_id} className="card-subtitle">
+                Товар #{rec.item_id} • score {rec.score}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <button className="btn" onClick={checkout}>
         Оформить заказ
       </button>
