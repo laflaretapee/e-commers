@@ -34,9 +34,15 @@ async def on_startup():
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
         group_id="notification-service",
     )
-    await consumer.start()
-    loop = asyncio.get_event_loop()
-    consumer_task = loop.create_task(_consume_loop())
+    try:
+        await consumer.start()
+        loop = asyncio.get_event_loop()
+        consumer_task = loop.create_task(_consume_loop())
+    except Exception as exc:
+        # Для учебного контура не блокируем запуск, если Kafka недоступна.
+        print(f"[notification_service] Kafka startup failed, running without consumer: {exc}")
+        consumer = None
+        consumer_task = None
 
 
 @app.on_event("shutdown")

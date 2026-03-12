@@ -1,13 +1,17 @@
 import re
 import time
-from datetime import datetime
+import math
+import random
+from datetime import datetime, timedelta
 from typing import Any, Literal
 
 from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .db import AsyncSessionLocal, Base, engine, get_db
+from .models import ItemFeature, RecFeedback, RecRequest, RecResult
 from .repositories import (
     EventRepository,
     FeatureRepository,
@@ -28,6 +32,8 @@ from .schemas import (
     ModerationDecisionOut,
     RecommendationFeedbackCreate,
     RecommendationItem,
+    RecommendationTrainingRunRequest,
+    RecommendationTrainingRunResponse,
     RecommendationRequest,
     RecommendationResponse,
     TrainingJobCreate,
@@ -44,6 +50,8 @@ app = FastAPI(
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
 ]
 
 app.add_middleware(
@@ -72,6 +80,66 @@ INTERACTION_WEIGHTS = {
     "OrderCreated": 4.0,
     "RecommendationClicked": 1.5,
 }
+
+DEFAULT_RANKING_WEIGHTS = {
+    "bias": 0.0,
+    "purchase_count": 3.0,
+    "add_to_cart_count": 1.6,
+    "view_count": 0.25,
+    "positive_feedback": 2.0,
+    "negative_feedback": -0.8,
+}
+
+DEFAULT_CONTEXT_WEIGHTS = {
+    "requested_category_bonus": 2.5,
+    "user_preference_multiplier": 1.3,
+    "cart_match_multiplier": 1.8,
+}
+
+
+def _to_float(value: Any, default: float = 0.0) -> float:
+    try:
+        if value is None:
+            return default
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_log1p(value: Any) -> float:
+    return math.log1p(max(0.0, _to_float(value, 0.0)))
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0:
+        exp_val = math.exp(-value)
+        return 1.0 / (1.0 + exp_val)
+    exp_val = math.exp(value)
+    return exp_val / (1.0 + exp_val)
+
+
+def _dot(left: list[float], right: list[float]) -> float:
+    return sum(a * b for a, b in zip(left, right))
+
+
+def _resolve_weight(model_metrics: dict[str, Any] | None, section: str, key: str, default: float) -> float:
+    if not model_metrics:
+        return default
+    raw_section = model_metrics.get(section)
+    if not isinstance(raw_section, dict):
+        return default
+    return _to_float(raw_section.get(key), default=default)
+
+
+def _item_feature_vector(item_features: dict[str, Any]) -> list[float]:
+    return [
+        1.0,
+        _safe_log1p(item_features.get("purchase_count")),
+        _safe_log1p(item_features.get("add_to_cart_count")),
+        _safe_log1p(item_features.get("view_count")),
+        _safe_log1p(item_features.get("positive_feedback")),
+        _safe_log1p(item_features.get("negative_feedback")),
+    ]
 
 
 def _to_int(value: Any) -> int | None:
@@ -236,25 +304,33 @@ def _score_item(
     category_id: int | None,
     context: str,
     item_category_id: int | None,
+    ranking_weights: dict[str, float],
+    context_weights: dict[str, float],
 ) -> tuple[float, str]:
-    views = float(item_features.get("view_count", 0.0))
-    added = float(item_features.get("add_to_cart_count", 0.0))
-    purchases = float(item_features.get("purchase_count", 0.0))
-    positive_feedback = float(item_features.get("positive_feedback", 0.0))
-
-    score = purchases * 3.0 + added * 1.6 + views * 0.25 + positive_feedback * 2.0
+    item_vector = _item_feature_vector(item_features)
+    score = _dot(
+        item_vector,
+        [
+            ranking_weights["bias"],
+            ranking_weights["purchase_count"],
+            ranking_weights["add_to_cart_count"],
+            ranking_weights["view_count"],
+            ranking_weights["positive_feedback"],
+            ranking_weights["negative_feedback"],
+        ],
+    )
     reason = "popularity"
 
     if category_id is not None and item_category_id == category_id:
-        score += 2.5
+        score += context_weights["requested_category_bonus"]
         reason = "requested_category"
 
     if item_category_id in preferred_categories:
-        score += preferred_categories[item_category_id] * 1.3
+        score += preferred_categories[item_category_id] * context_weights["user_preference_multiplier"]
         reason = "user_preference"
 
     if context == "cart" and item_category_id in cart_categories:
-        score += cart_categories[item_category_id] * 1.8
+        score += cart_categories[item_category_id] * context_weights["cart_match_multiplier"]
         reason = "cart_match"
 
     return score, reason
@@ -263,6 +339,7 @@ def _score_item(
 async def _generate_recommendations(
     request: RecommendationRequest,
     feature_repo: FeatureRepository,
+    model_metrics: dict[str, Any] | None = None,
 ) -> list[RecommendationItem]:
     excluded = set(request.item_ids or [])
     if request.item_id is not None:
@@ -284,6 +361,15 @@ async def _generate_recommendations(
             if item.category_id is None:
                 continue
             cart_categories[item.category_id] = cart_categories.get(item.category_id, 0.0) + 1.0
+
+    ranking_weights = {
+        key: _resolve_weight(model_metrics, "ranking_weights", key, default)
+        for key, default in DEFAULT_RANKING_WEIGHTS.items()
+    }
+    context_weights = {
+        key: _resolve_weight(model_metrics, "context_weights", key, default)
+        for key, default in DEFAULT_CONTEXT_WEIGHTS.items()
+    }
 
     candidates = []
     seen_ids: set[int] = set()
@@ -324,6 +410,8 @@ async def _generate_recommendations(
             category_id=request.category_id,
             context=request.context,
             item_category_id=row.category_id,
+            ranking_weights=ranking_weights,
+            context_weights=context_weights,
         )
         if score <= 0:
             score = 0.1
@@ -337,6 +425,148 @@ async def _generate_recommendations(
 
     scored.sort(key=lambda item: item.score, reverse=True)
     return scored[: request.limit]
+
+
+def _target_from_feedback(action: str | None) -> tuple[float, float]:
+    if action == "clicked":
+        return 1.0, 1.0
+    if action == "disliked":
+        return 0.0, 1.0
+    if action == "skipped":
+        return 0.0, 0.7
+    return 0.0, 0.15
+
+
+async def _load_recommendation_training_samples(
+    db: AsyncSession,
+    lookback_days: int,
+    max_samples: int,
+) -> tuple[list[tuple[list[float], float, float]], dict[str, Any]]:
+    cutoff = datetime.utcnow() - timedelta(days=lookback_days)
+    samples_stmt = (
+        select(RecResult.request_id, RecResult.item_id)
+        .join(RecRequest, RecResult.request_id == RecRequest.request_id)
+        .where(RecRequest.ts >= cutoff)
+        .order_by(desc(RecRequest.ts))
+        .limit(max_samples)
+    )
+    sample_rows = list((await db.execute(samples_stmt)).all())
+    if not sample_rows:
+        return [], {
+            "sample_count": 0,
+            "positive_samples": 0,
+            "feedback_rows": 0,
+            "items_with_features": 0,
+            "lookback_days": lookback_days,
+        }
+
+    request_ids = {int(row[0]) for row in sample_rows}
+    item_ids = {int(row[1]) for row in sample_rows}
+
+    feedback_stmt = select(RecFeedback.request_id, RecFeedback.item_id, RecFeedback.action, RecFeedback.ts).where(
+        RecFeedback.request_id.in_(request_ids)
+    )
+    feedback_rows = list((await db.execute(feedback_stmt)).all())
+    latest_feedback: dict[tuple[int, int], tuple[str, datetime | None]] = {}
+    for request_id, item_id, action, ts in feedback_rows:
+        key = (int(request_id), int(item_id))
+        previous = latest_feedback.get(key)
+        if previous is None or (previous[1] or datetime.min) <= (ts or datetime.min):
+            latest_feedback[key] = (str(action), ts)
+
+    feature_stmt = select(ItemFeature.item_id, ItemFeature.features).where(ItemFeature.item_id.in_(item_ids))
+    feature_rows = list((await db.execute(feature_stmt)).all())
+    item_feature_map = {int(item_id): dict(features or {}) for item_id, features in feature_rows}
+
+    dataset: list[tuple[list[float], float, float]] = []
+    positive_samples = 0
+    for request_id, item_id in sample_rows:
+        key = (int(request_id), int(item_id))
+        action = latest_feedback.get(key, (None, None))[0]
+        target, sample_weight = _target_from_feedback(action)
+        if target > 0:
+            positive_samples += 1
+        item_features = item_feature_map.get(int(item_id), {})
+        dataset.append((_item_feature_vector(item_features), target, sample_weight))
+
+    stats = {
+        "sample_count": len(dataset),
+        "positive_samples": positive_samples,
+        "feedback_rows": len(feedback_rows),
+        "items_with_features": len(item_feature_map),
+        "lookback_days": lookback_days,
+    }
+    return dataset, stats
+
+
+def _weighted_logloss(samples: list[tuple[list[float], float, float]], weights: list[float]) -> float:
+    loss_sum = 0.0
+    total_weight = 0.0
+    for vector, target, sample_weight in samples:
+        prob = _sigmoid(_dot(weights, vector))
+        prob = min(max(prob, 1e-6), 1.0 - 1e-6)
+        loss = -target * math.log(prob) - (1.0 - target) * math.log(1.0 - prob)
+        loss_sum += loss * sample_weight
+        total_weight += sample_weight
+    if total_weight <= 0:
+        return 0.0
+    return loss_sum / total_weight
+
+
+def _train_recommendation_weights(
+    samples: list[tuple[list[float], float, float]],
+    epochs: int,
+    learning_rate: float,
+    l2: float,
+    random_seed: int,
+) -> tuple[dict[str, float], dict[str, Any]]:
+    if not samples:
+        raise ValueError("No samples available for training")
+
+    weights = [
+        DEFAULT_RANKING_WEIGHTS["bias"],
+        DEFAULT_RANKING_WEIGHTS["purchase_count"],
+        DEFAULT_RANKING_WEIGHTS["add_to_cart_count"],
+        DEFAULT_RANKING_WEIGHTS["view_count"],
+        DEFAULT_RANKING_WEIGHTS["positive_feedback"],
+        DEFAULT_RANKING_WEIGHTS["negative_feedback"],
+    ]
+
+    rng = random.Random(random_seed)
+    indices = list(range(len(samples)))
+    loss_before = _weighted_logloss(samples, weights)
+    loss_curve: list[float] = []
+
+    for _ in range(epochs):
+        rng.shuffle(indices)
+        for idx in indices:
+            vector, target, sample_weight = samples[idx]
+            predicted = _sigmoid(_dot(weights, vector))
+            error = (predicted - target) * sample_weight
+
+            # Bias without regularization.
+            weights[0] -= learning_rate * error * vector[0]
+            for i in range(1, len(weights)):
+                gradient = error * vector[i] + l2 * weights[i]
+                weights[i] -= learning_rate * gradient
+                weights[i] = max(-8.0, min(8.0, weights[i]))
+        loss_curve.append(round(_weighted_logloss(samples, weights), 6))
+
+    loss_after = _weighted_logloss(samples, weights)
+    trained_weights = {
+        "bias": round(weights[0], 6),
+        "purchase_count": round(weights[1], 6),
+        "add_to_cart_count": round(weights[2], 6),
+        "view_count": round(weights[3], 6),
+        "positive_feedback": round(weights[4], 6),
+        "negative_feedback": round(weights[5], 6),
+    }
+    train_stats = {
+        "loss_before": round(loss_before, 6),
+        "loss_after": round(loss_after, 6),
+        "loss_curve": loss_curve,
+    }
+    return trained_weights, train_stats
 
 
 def _moderate_content(payload: ModerationCheckRequest) -> tuple[str, float, str]:
@@ -441,10 +671,11 @@ async def get_recommendations(
     model_repo = ModelRegistryRepository(db)
     event_repo = EventRepository(db)
 
-    recommendations = await _generate_recommendations(payload, feature_repo)
-    latency_ms = int((time.perf_counter() - start) * 1000)
     active_model = await model_repo.get_active_model("recommendation")
     model_version = active_model.model_version if active_model else "heuristic-v1"
+    model_metrics = active_model.metrics if active_model else None
+    recommendations = await _generate_recommendations(payload, feature_repo, model_metrics=model_metrics)
+    latency_ms = int((time.perf_counter() - start) * 1000)
 
     request_row = await rec_repo.create_request(
         user_id=payload.user_id,
@@ -660,6 +891,108 @@ async def list_training_jobs(
 ):
     repo = TrainingJobRepository(db)
     return await repo.list_jobs(limit=limit)
+
+
+@app.post("/training/recommendation/run", response_model=RecommendationTrainingRunResponse, status_code=status.HTTP_201_CREATED)
+async def run_recommendation_training(
+    payload: RecommendationTrainingRunRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    training_repo = TrainingJobRepository(db)
+    model_repo = ModelRegistryRepository(db)
+
+    parameters = payload.model_dump()
+    job = await training_repo.create_job(job_type="recommendation", parameters=parameters)
+    await training_repo.update_job(
+        job_id=job.id,
+        status="running",
+        metrics={"stage": "loading_data"},
+        error_text=None,
+    )
+    await db.flush()
+
+    try:
+        samples, sample_stats = await _load_recommendation_training_samples(
+            db=db,
+            lookback_days=payload.lookback_days,
+            max_samples=payload.max_samples,
+        )
+        if sample_stats["sample_count"] < payload.min_samples:
+            raise ValueError(
+                f"Not enough recommendation samples. "
+                f"Need at least {payload.min_samples} shown items."
+            )
+        if sample_stats["positive_samples"] < payload.min_positive_samples:
+            raise ValueError(
+                f"Not enough positive feedback samples. "
+                f"Need at least {payload.min_positive_samples}, got {sample_stats['positive_samples']}."
+            )
+
+        trained_weights, train_stats = _train_recommendation_weights(
+            samples=samples,
+            epochs=payload.epochs,
+            learning_rate=payload.learning_rate,
+            l2=payload.l2,
+            random_seed=payload.random_seed,
+        )
+
+        model_version = f"recs-sgd-v{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        model_metrics = {
+            "source": "sgd_logistic_on_feedback",
+            "ranking_weights": trained_weights,
+            "context_weights": DEFAULT_CONTEXT_WEIGHTS,
+            "training_parameters": parameters,
+            "training_stats": {
+                **sample_stats,
+                **train_stats,
+                "trained_at": datetime.utcnow().isoformat(),
+            },
+        }
+        model = await model_repo.register_model(
+            model_type="recommendation",
+            model_version=model_version,
+            metrics=model_metrics,
+            artifact_uri=f"inline://{model_version}",
+            is_active=payload.activate_model,
+        )
+
+        summary = {
+            **sample_stats,
+            **train_stats,
+            "model_version": model_version,
+            "is_active": payload.activate_model,
+        }
+        await training_repo.update_job(
+            job_id=job.id,
+            status="completed",
+            metrics=summary,
+            error_text=None,
+        )
+        await db.commit()
+        await db.refresh(job)
+        await db.refresh(model)
+        return RecommendationTrainingRunResponse(
+            job=job,
+            model={
+                "id": model.id,
+                "model_type": model.model_type,
+                "model_version": model.model_version,
+                "metrics": model.metrics,
+                "artifact_uri": model.artifact_uri,
+                "is_active": model.is_active,
+                "created_at": model.created_at.isoformat(),
+            },
+            summary=summary,
+        )
+    except Exception as exc:
+        await training_repo.update_job(
+            job_id=job.id,
+            status="failed",
+            metrics={"stage": "failed"},
+            error_text=str(exc),
+        )
+        await db.commit()
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Recommendation training failed: {exc}")
 
 
 @app.post("/models/register", response_model=ModelOut, status_code=status.HTTP_201_CREATED)

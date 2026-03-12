@@ -32,6 +32,8 @@ app = FastAPI(
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
 ]
 
 app.add_middleware(
@@ -102,12 +104,16 @@ async def on_startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    # Kafka producer
+    # Kafka producer: сервис не должен падать, если Kafka временно недоступна
     kafka_producer = AIOKafkaProducer(
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
     )
-    await kafka_producer.start()
+    try:
+        await kafka_producer.start()
+    except Exception as exc:
+        print(f"[order_service] Kafka startup failed, running without Kafka: {exc}")
+        kafka_producer = None
 
 
 @app.on_event("shutdown")

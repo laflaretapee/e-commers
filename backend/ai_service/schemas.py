@@ -118,6 +118,24 @@ class TrainingJobOut(BaseModel):
         from_attributes = True
 
 
+class RecommendationTrainingRunRequest(BaseModel):
+    lookback_days: int = Field(30, ge=1, le=365)
+    max_samples: int = Field(50000, ge=100, le=500000)
+    min_samples: int = Field(100, ge=10, le=500000)
+    epochs: int = Field(8, ge=1, le=100)
+    learning_rate: float = Field(0.03, gt=0, le=1.0)
+    l2: float = Field(0.001, ge=0, le=1.0)
+    min_positive_samples: int = Field(20, ge=1, le=100000)
+    activate_model: bool = True
+    random_seed: int = Field(4322026, ge=1)
+
+
+class RecommendationTrainingRunResponse(BaseModel):
+    job: TrainingJobOut
+    model: dict[str, Any]
+    summary: dict[str, Any] = Field(default_factory=dict)
+
+
 class ModelRegisterCreate(BaseModel):
     model_type: Literal["recommendation", "moderation"]
     model_version: str = Field(..., min_length=1, max_length=120)
