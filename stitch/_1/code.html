@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#005bff",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Вход или регистрация - OZON</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4">
+<!-- Header/Logo Area -->
+<div class="mb-8 flex items-center gap-2">
+<div class="text-primary">
+<svg class="w-10 h-10" fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"></path>
+<path clip-rule="evenodd" d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">OZON</h1>
+</div>
+<!-- Main Card -->
+<main class="w-full max-w-[440px] bg-white dark:bg-background-dark/50 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm p-8 md:p-10">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-8">Вход или регистрация</h2>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300" for="login">
+                        Телефон или почта
+                    </label>
+<input class="w-full px-4 py-3.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-slate-400" id="login" placeholder="example@mail.ru" type="text"/>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-lg transition-colors text-lg shadow-sm" type="submit">
+                    Продолжить
+                </button>
+</form>
+<div class="mt-4 text-center">
+<a class="text-primary hover:underline text-sm font-medium" href="#">
+                    Вход по паролю
+                </a>
+</div>
+<!-- Divider -->
+<div class="relative my-10">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+</div>
+<div class="relative flex justify-center text-sm uppercase">
+<span class="bg-white dark:bg-background-dark/50 px-3 text-slate-500">Или войти через</span>
+</div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-3 gap-4">
+<!-- VK -->
+<button class="flex items-center justify-center p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" title="VK">
+<svg class="w-6 h-6 text-[#0077FF]" fill="currentColor" viewbox="0 0 24 24">
+<path d="M15.002 2C5.613 2 2 5.613 2 15.002c0 9.39 3.613 13.003 13.002 13.003h1.996c9.389 0 13.002-3.613 13.002-13.003C30.002 5.613 26.389 2 17 2h-1.998zm4.611 18.001c-.551 0-1.144-.047-1.424-.139-1.25-.411-2.457-1.785-3.418-3.921-1.041 2.136-2.249 3.51-3.498 3.921-.28.092-.873.139-1.424.139-.817 0-1.272-.257-1.411-.796-.134-.515.111-1.12.723-1.785.642-.7 1.621-1.393 2.915-2.062-1.294-.67-2.273-1.362-2.915-2.063-.611-.664-.857-1.269-.723-1.784.139-.539.594-.796 1.411-.796.551 0 1.144.047 1.424.139 1.25.411 2.457 1.785 3.418 3.921 1.041-2.136 2.249-3.51 3.498-3.921.28-.092.873-.139 1.424-.139.817 0 1.272.257 1.411.796.134.515-.111 1.12-.723 1.784-.642.701-1.621 1.393-2.915 2.063 1.294.669 2.273 1.362 2.915 2.062.611.665.857 1.27.723 1.785-.139.539-.594.796-1.411.796z" transform="scale(0.8)"></path>
+<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.111 15c-1.155 0-2.316-.948-3.111-2.131-.795 1.183-1.956 2.131-3.111 2.131-1.218 0-1.889-.64-1.889-1.605 0-1.115.655-1.996 1.72-2.61 1.15-.65 2.505-1.045 3.28-1.285-.775-.24-2.13-.635-3.28-1.285-1.065-.614-1.72-1.495-1.72-2.61 0-.965.671-1.605 1.889-1.605 1.155 0 2.316.948 3.111 2.131.795-1.183 1.956-2.131 3.111-2.131 1.218 0 1.889.64 1.889 1.605 0 1.115-.655 1.996-1.72 2.61-1.15.65-2.505 1.045-3.28 1.285.775.24 2.13.635 3.28 1.285 1.065.614 1.72 1.495 1.72 2.61 0 .965-.671 1.605-1.889 1.605z"></path>
+</svg>
+</button>
+<!-- Google -->
+<button class="flex items-center justify-center p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" title="Google">
+<svg class="w-6 h-6" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"></path>
+</svg>
+</button>
+<!-- Apple -->
+<button class="flex items-center justify-center p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" title="Apple ID">
+<svg class="w-6 h-6 text-slate-900 dark:text-slate-100" fill="currentColor" viewbox="0 0 24 24">
+<path d="M17.05 20.28c-.96.95-2.44 2.08-4.08 2.08-1.65 0-2.31-.96-3.86-.96-1.55 0-2.38.93-3.81.93-1.55 0-3.05-1.13-4.14-2.22-2.18-2.2-3.32-5.75-3.32-8.52 0-4.32 2.66-6.62 5.14-6.62 1.34 0 2.44.83 3.44.83.93 0 2.22-.96 3.66-.96 1.41 0 2.58.64 3.44 1.48-2.81 2.37-2.26 6.58.55 8.16-.72 1.93-1.53 3.75-2.52 4.81zM11.9 4.36c-.14-2.19 1.77-4.13 3.84-4.36.21 2.4-1.93 4.43-3.84 4.36z"></path>
+</svg>
+</button>
+</div>
+<!-- Additional Links -->
+<div class="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800 text-center space-y-3">
+<p class="text-xs text-slate-500 leading-relaxed">
+                    При входе или регистрации вы соглашаетесь с 
+                    <a class="text-primary hover:underline" href="#">Условиями использования</a> 
+                    и 
+                    <a class="text-primary hover:underline" href="#">Политикой конфиденциальности</a>
+</p>
+<a class="block text-primary hover:underline text-sm font-medium" href="#">Забыли пароль?</a>
+</div>
+</main>
+<!-- Footer Footer -->
+<footer class="mt-8 text-center text-slate-400 text-sm">
+            © 1998–2024 OZON. Все права защищены.
+        </footer>
+</div>
+</body></html>

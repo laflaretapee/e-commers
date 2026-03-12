@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Training Center - Model Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .status-pill { @apply px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">model_training</span>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Training Center</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Training Jobs</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Datasets</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Models</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Infrastructure</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search experiments..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold overflow-hidden" data-alt="User profile avatar placeholder">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-6 md:px-10 py-8 max-w-7xl mx-auto w-full">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Left Column: New Job Form -->
+<div class="w-full lg:w-1/3 space-y-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-lg font-bold mb-1">Start New Training</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Configure and launch a new training session.</p>
+<form class="space-y-4">
+<div>
+<label class="block text-sm font-medium mb-1.5">Model Name</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary" placeholder="e.g. BERT-FineTune-v1" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1.5">Select Dataset</label>
+<select class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary">
+<option>ImageNet-2024-v2 (1.2M images)</option>
+<option>COCO-Stuff-v1.1</option>
+<option>Custom-Customer-Churn-v3</option>
+<option>NLP-Sentiment-Gold-Standard</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium mb-1.5">Learning Rate</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary" step="0.0001" type="number" value="0.001"/>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1.5">Batch Size</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary" type="number" value="32"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1.5">Compute Resource</label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 p-3 rounded-lg border border-primary bg-primary/5 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary" name="compute" type="radio"/>
+<div>
+<p class="text-sm font-semibold">NVIDIA H100 (80GB)</p>
+<p class="text-xs text-slate-500">Optimized for LLM</p>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 cursor-pointer">
+<input class="text-primary focus:ring-primary" name="compute" type="radio"/>
+<div>
+<p class="text-sm font-semibold">NVIDIA A100 (40GB)</p>
+<p class="text-xs text-slate-500">Standard compute</p>
+</div>
+</label>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all mt-4" type="submit">
+<span class="material-symbols-outlined">play_arrow</span>
+                                    Launch Training Job
+                                </button>
+</form>
+</div>
+<!-- Stats Card -->
+<div class="bg-primary p-6 rounded-xl text-white relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-primary-foreground/80 text-sm font-medium">Monthly Compute Usage</p>
+<h4 class="text-3xl font-black mt-1">742.5 hrs</h4>
+<div class="mt-4 bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-white h-full w-[74%]"></div>
+</div>
+<p class="text-xs mt-2 opacity-80">74% of 1000h quota used</p>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-white/10 text-9xl">analytics</span>
+</div>
+</div>
+<!-- Right Column: Training Jobs List -->
+<div class="w-full lg:w-2/3 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold">Training Jobs</h3>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                                </button>
+<button class="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> Export
+                                </button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-xs font-semibold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Job Info</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Metrics</th>
+<th class="px-6 py-4">Runtime</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Running Job -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="font-bold text-sm">Llama-3-FineTune-Prod</div>
+<div class="text-xs text-slate-500">ID: job_928374</div>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined text-sm animate-spin">sync</span> Running
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">Loss: <span class="font-semibold">0.42</span></div>
+<div class="text-xs text-slate-500">Acc: 89.2%</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium">14h 22m</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">stop_circle</span>
+</button>
+</td>
+</tr>
+<!-- Completed Job -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="font-bold text-sm">Stable-Diffusion-Icons</div>
+<div class="text-xs text-slate-500">ID: job_112093</div>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined text-sm">check_circle</span> Completed
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">FID: <span class="font-semibold">12.1</span></div>
+<div class="text-xs text-slate-500">Steps: 50k</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium">4d 05h</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Failed Job -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="font-bold text-sm">Whisper-V3-Russian</div>
+<div class="text-xs text-slate-500">ID: job_883201</div>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400">
+<span class="material-symbols-outlined text-sm">error</span> Failed
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm text-rose-500 font-medium">Out of Memory</div>
+<div class="text-xs text-slate-500">Step 142/5000</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium">0h 12m</td>
+<td class="px-6 py-5 text-right flex gap-2 justify-end">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">restart_alt</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">description</span>
+</button>
+</td>
+</tr>
+<!-- Another Completed Job -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="font-bold text-sm">ResNet50-Base-Exp4</div>
+<div class="text-xs text-slate-500">ID: job_003921</div>
+</td>
+<td class="px-6 py-5">
+<span class="status-pill bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined text-sm">check_circle</span> Completed
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="text-sm">mAP: <span class="font-semibold">0.94</span></div>
+<div class="text-xs text-slate-500">Val Loss: 0.11</div>
+</td>
+<td class="px-6 py-5 text-sm font-medium">8h 45m</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/30 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing 4 of 24 training jobs</p>
+<div class="flex gap-2">
+<button class="p-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400 disabled:opacity-50">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="p-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Mini Dashboard Tiles -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-slate-500 mb-2">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Success Rate</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">92.4%</span>
+<span class="text-xs text-emerald-500">+1.2%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-slate-500 mb-2">
+<span class="material-symbols-outlined text-sm">memory</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Active Nodes</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">12/16</span>
+<span class="text-xs text-blue-500">Stable</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-slate-500 mb-2">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Queue Time</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">4.2m</span>
+<span class="text-xs text-rose-500">+1.5m</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

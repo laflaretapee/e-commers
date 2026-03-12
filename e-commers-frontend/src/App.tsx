@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
 import LoginPage from "./pages/LoginPage";
@@ -7,65 +7,68 @@ import RegisterPage from "./pages/RegisterPage";
 import CatalogPage from "./pages/CatalogPage";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
+import ProductPage from "./pages/ProductPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import ProfilePage from "./pages/ProfilePage";
+import AiDashboardPage from "./pages/admin/AiDashboardPage";
+import AiRecommendationsPage from "./pages/admin/AiRecommendationsPage";
+import AiModerationPage from "./pages/admin/AiModerationPage";
+import AiTrainingPage from "./pages/admin/AiTrainingPage";
+
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+  if (!user) {
+    return <Navigate replace to="/login" />;
+  }
+  return <>{children}</>;
+}
 
 const App: React.FC = () => {
-  const { user, logout } = useAuth();
-
+  const { user } = useAuth();
   return (
-    <div className="app-root">
-      <header className="app-header">
-        <div className="app-logo">Mini Ozon</div>
-
-        <nav className="app-nav">
-          <Link to="/">Каталог</Link>
-          {user && (
-            <>
-              <Link to="/cart">Корзина</Link>
-              <Link to="/orders">Заказы</Link>
-            </>
-          )}
-        </nav>
-
-        <div className="app-user">
-          {user ? (
-            <>
-              <span className="text-muted">{user.email}</span>
-              <button className="btn btn-secondary" onClick={logout}>
-                Выйти
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Вход</Link>
-              <span className="text-muted">/</span>
-              <Link to="/register">Регистрация</Link>
-            </>
-          )}
-        </div>
-      </header>
-
-      <main>
-        <Routes>
-          <Route path="/" element={<CatalogPage />} />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <LoginPage />}
-          />
-          <Route
-            path="/register"
-            element={user ? <Navigate to="/" /> : <RegisterPage />}
-          />
-          <Route
-            path="/cart"
-            element={user ? <CartPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/orders"
-            element={user ? <OrdersPage /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<CatalogPage />} />
+      <Route path="/products/:productId" element={<ProductPage />} />
+      <Route path="/login" element={user ? <Navigate replace to="/" /> : <LoginPage />} />
+      <Route path="/register" element={user ? <Navigate replace to="/" /> : <RegisterPage />} />
+      <Route
+        path="/cart"
+        element={
+          <RequireAuth>
+            <CartPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <RequireAuth>
+            <CheckoutPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/orders"
+        element={
+          <RequireAuth>
+            <OrdersPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <RequireAuth>
+            <ProfilePage />
+          </RequireAuth>
+        }
+      />
+      <Route path="/admin/ai" element={<AiDashboardPage />} />
+      <Route path="/admin/ai/recommendations" element={<AiRecommendationsPage />} />
+      <Route path="/admin/ai/moderation" element={<AiModerationPage />} />
+      <Route path="/admin/ai/training" element={<AiTrainingPage />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
+    </Routes>
   );
 };
 

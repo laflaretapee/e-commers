@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 md:px-10 py-4 sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">shopping_cart_checkout</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Оформление заказа</h1>
+</div>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">close</span>
+</button>
+</header>
+<main class="flex-1 max-w-5xl mx-auto w-full p-4 md:p-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Checkout Details -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Order Items Preview -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+<h3 class="text-lg font-bold">Товары в заказе</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="flex gap-4 items-center">
+<div class="w-20 h-20 bg-center bg-no-repeat bg-cover rounded-lg flex-shrink-0" data-alt="Black wireless headphones on studio background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDWUaIyavm7z7T0nIuwzNdB9DoTrE2tpdjqj7vQQH1Yn5QdU1DtMMlffrWDcmbnKV5nPV4mEv4BnTrusZKl-s79nh5EE1lmRJnrxRWPtqcNLIARA4Al7joSwuMRDtN1bD4QVuZecr86gbBDFSj23Vle4pguZb2PKN8Qs35EVb5HHyV8uixfKb2iHV0XMUtpbaisH2zFhz8omwcs3nwoBwwiEqXHhDe2z51jBwcg2-grHn9eqtdjQjz0Phk__JWUbV8L_6q_96aHfhE");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-slate-100 font-medium truncate">Беспроводные наушники</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">1 шт. • 5 490 ₽</p>
+</div>
+</div>
+<div class="flex gap-4 items-center">
+<div class="w-20 h-20 bg-center bg-no-repeat bg-cover rounded-lg flex-shrink-0" data-alt="Minimalist protective smartphone case" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDMx60073JTM6Bz0F0A77n2_PudghNbWW8Jk2yHEZYITylohaVTtVyC5Aw2NJ6dmRh696sR7QHMU8ob7-wCyLVUMbI2QStvq20cWjGJgX51WDaXg3CSUKLr-PnoZbDV9wRPA-tD4hljZ-kA0_FcUTFvRmIbrhB0jtJBUrjoykGdIt8UsI39--hECV3nRrdCND4nrLrjjc9vBGgQS9L8PcqrUuVp3UZMOPjVl-80KE-hzZqYL4vUbOB9s5A3l_gotrUzvTUmin31dFs");'></div>
+<div class="flex-1 min-w-0">
+<p class="text-slate-900 dark:text-slate-100 font-medium truncate">Защитный чехол</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">1 шт. • 990 ₽</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Delivery Method -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h3 class="text-lg font-bold">Способ доставки</h3>
+</div>
+<div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+<label class="flex cursor-pointer flex-1 items-center justify-center rounded-lg px-4 py-2.5 transition-all has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm text-slate-600 dark:text-slate-400 has-[:checked]:text-primary font-medium">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">storefront</span>
+                                    Пункт выдачи
+                                </span>
+<input checked="" class="hidden" name="delivery" type="radio"/>
+</label>
+<label class="flex cursor-pointer flex-1 items-center justify-center rounded-lg px-4 py-2.5 transition-all has-[:checked]:bg-white dark:has-[:checked]:bg-slate-700 has-[:checked]:shadow-sm text-slate-600 dark:text-slate-400 has-[:checked]:text-primary font-medium">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">home</span>
+                                    Курьер
+                                </span>
+<input class="hidden" name="delivery" type="radio"/>
+</label>
+</div>
+<div class="mt-6 p-4 border border-primary/20 bg-primary/5 rounded-lg flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<div>
+<p class="font-medium text-slate-900 dark:text-slate-100">Пункт выдачи СДЭК</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">ул. Центральная, д. 15, Москва</p>
+<p class="text-xs text-primary mt-1 font-semibold">Доставим завтра, бесплатно</p>
+</div>
+</div>
+</section>
+<!-- Payment Method -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h3 class="text-lg font-bold">Способ оплаты</h3>
+</div>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-4 border border-slate-200 dark:border-slate-800 rounded-lg cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">credit_card</span>
+<span class="font-medium">Картой онлайн</span>
+</div>
+<input checked="" class="w-4 h-4 text-primary border-slate-300 focus:ring-primary" name="payment" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 border border-slate-200 dark:border-slate-800 rounded-lg cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">account_balance_wallet</span>
+<span class="font-medium">SberPay / СБП</span>
+</div>
+<input class="w-4 h-4 text-primary border-slate-300 focus:ring-primary" name="payment" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 border border-slate-200 dark:border-slate-800 rounded-lg cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-500">handshake</span>
+<span class="font-medium">При получении</span>
+</div>
+<input class="w-4 h-4 text-primary border-slate-300 focus:ring-primary" name="payment" type="radio"/>
+</label>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:col-span-1">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-slate-800 sticky top-24">
+<h3 class="text-xl font-bold mb-6">Ваш заказ</h3>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Товары (2)</span>
+<span>6 480 ₽</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Доставка</span>
+<span class="text-green-600 font-medium">Бесплатно</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Скидка</span>
+<span class="text-primary">- 0 ₽</span>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 dark:border-slate-800 mb-6">
+<div class="flex justify-between items-end">
+<span class="text-lg font-bold">Итого</span>
+<span class="text-2xl font-bold text-primary">6 480 ₽</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all shadow-md shadow-primary/20 active:scale-[0.98]">
+                            Оплатить заказ
+                        </button>
+<div class="mt-4 flex items-center gap-2 justify-center text-slate-400 text-xs">
+<span class="material-symbols-outlined text-xs">lock</span>
+                            Безопасная оплата
+                        </div>
+<div class="mt-8 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm text-slate-500">help_outline</span>
+<span class="text-sm font-semibold">Нужна помощь?</span>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">
+                                Свяжитесь с нами в чате или по телефону <span class="text-slate-700 dark:text-slate-300 font-medium">8 800 555-35-35</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,12 +1,7 @@
-import { createContext, useContext, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-
-export type User = {
-  id: number;
-  email: string;
-  full_name: string;
-  role: string;
-};
+import type { User } from "../lib/shop";
 
 type AuthContextType = {
   user: User | null;
@@ -15,12 +10,34 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const STORAGE_KEY = "market-ai-user";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (!stored) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(stored) as User;
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+  });
 
   const login = (u: User) => setUser(u);
   const logout = () => setUser(null);
+
+  useEffect(() => {
+    if (user) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+      return;
+    }
+
+    window.localStorage.removeItem(STORAGE_KEY);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

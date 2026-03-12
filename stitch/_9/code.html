@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>AI Модерация товаров</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 lg:px-10">
+<div class="flex items-center gap-4">
+<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">AI Модерация товаров</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 lg:gap-8 items-center">
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<div class="flex items-center justify-center pl-4 text-slate-500">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full border-none bg-transparent focus:ring-0 text-sm placeholder:text-slate-500" placeholder="Поиск по ID или названию" value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="User avatar of a male moderator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcafTMVMj4ZhMn8b-BNURWoBxbUVELFZRZ_m3dgWqBw-dmjSbyjWjZ0GrgVMSGjACepB44coj-WGp3VkecVld1oG89kdcK3NoHrFa-A05IuAVjOuf_bRxjKY1HwBe1W59kZjlNDs3p20wmhzPP1lV_5dNK2JPGkiNabH8Y9V5sN88R1BLkRaVRMUBeTJLKhlmQlgw9tCdFFGiUwl1EI3Ckn7rfJFaQS6nuhpE8rVzeHu1Sdt1e_N2HGvJWwc1IaiCnUUq5JJOWOVA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar -->
+<aside class="hidden lg:flex w-64 flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-4 shrink-0">
+<div class="flex flex-col gap-6">
+<div>
+<h1 class="text-base font-semibold">Модератор AI</h1>
+<p class="text-slate-500 text-sm">ID 88234 • Senior</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="text-sm font-medium">Очередь (12)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">История</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="text-sm font-medium">Правила</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-medium">Аналитика</span>
+</a>
+</nav>
+<div class="mt-4 pt-6 border-t border-slate-100 dark:border-slate-800">
+<h3 class="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Статистика дня</h3>
+<div class="px-3 flex flex-col gap-2">
+<div class="flex justify-between text-sm">
+<span class="text-slate-500">Одобрено</span>
+<span class="font-medium text-emerald-600">142</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-500">Отклонено</span>
+<span class="font-medium text-red-600">28</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark p-4 lg:p-8">
+<div class="max-w-5xl mx-auto flex flex-col gap-6">
+<!-- Tabs -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8">
+<a class="flex flex-col items-center justify-center border-b-2 border-primary text-primary pb-3 pt-2" href="#">
+<p class="text-sm font-bold">На проверке</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 pb-3 pt-2 hover:text-slate-700 dark:hover:text-slate-300" href="#">
+<p class="text-sm font-medium">История</p>
+</a>
+</div>
+<!-- Product Card for Moderation -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Left Column: Product Info -->
+<div class="xl:col-span-2 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm overflow-hidden border border-slate-200 dark:border-slate-800">
+<div class="grid md:grid-cols-2 gap-0">
+<div class="aspect-square bg-slate-100 dark:bg-slate-800 relative group">
+<img class="h-full w-full object-cover" data-alt="Samsung Galaxy S23 smartphone in box" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYNHmgJL5wxUx5ALhud7z01gcMCgBF33cl48D-3o9BegjbVGLPz0FmaEPVV5ygXWbQyfhShVXOufQQaQJNX3Fi9Op1vvycVwTLEjDa1G5qz02UVsYCgaN4Uza_BAmV4VJnG_1wHG1n1yT289ioeCxB_v9t1leSu3HW0ipqrnxm6AncsvJPcpNveTAph2UD354WPk1gd-jqMXKxIG2Dw4LCpy8im_yhQ961NzV62Vhwj_6ufaSuqDXuBa4NVtpkWrcvZKYvK0S9zpU"/>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<button class="bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm text-slate-800">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="bg-white/90 backdrop-blur p-2 rounded-lg shadow-sm text-slate-800">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<span class="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">Электроника</span>
+<span class="text-slate-400 text-xs font-mono">ID: 54921</span>
+</div>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">Смартфон Samsung Galaxy S23</h3>
+<div class="space-y-4">
+<div>
+<p class="text-xs font-bold text-slate-400 uppercase mb-1">Продавец</p>
+<p class="text-sm text-slate-700 dark:text-slate-300">ТехноМир (Рейтинг 4.8)</p>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-400 uppercase mb-1">Описание</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                                Новый смартфон в заводской упаковке. 256ГБ, черный цвет. Гарантия от производителя 1 год. В комплекте кабель USB-C.
+                                            </p>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-400 uppercase mb-1">Цена</p>
+<p class="text-lg font-bold text-primary">74 990 ₽</p>
+</div>
+</div>
+<div class="mt-4 p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/50">
+<div class="flex gap-2 items-center text-emerald-700 dark:text-emerald-400 mb-1">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<p class="text-xs font-bold uppercase">AI Скоринг: 98/100</p>
+</div>
+<p class="text-xs text-emerald-600 dark:text-emerald-500">Система не обнаружила нарушений. Рекомендовано к одобрению.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Moderation Controls -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">gavel</span>
+                                Решение модератора
+                            </h3>
+<div class="flex flex-col gap-6">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Причина отклонения или доработки (если требуется)</label>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-primary">
+<option value="">Выберите причину из списка...</option>
+<option value="photo">Некачественные фотографии</option>
+<option value="desc">Некорректное описание</option>
+<option value="cat">Неправильная категория</option>
+<option value="price">Подозрительно низкая цена</option>
+<option value="duplicate">Дубликат товара</option>
+<option value="prohibited">Запрещенный товар</option>
+</select>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-all shadow-lg shadow-emerald-600/20">
+<span class="material-symbols-outlined">check_circle</span>
+                                        Одобрить
+                                    </button>
+<button class="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold rounded-lg transition-all">
+<span class="material-symbols-outlined">edit_note</span>
+                                        На доработку
+                                    </button>
+<button class="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-all shadow-lg shadow-red-600/20">
+<span class="material-symbols-outlined">cancel</span>
+                                        Отклонить
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: History -->
+<div class="xl:col-span-1">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-base font-bold">История решений</h3>
+<a class="text-primary text-xs font-bold hover:underline" href="#">Все</a>
+</div>
+<div class="flex flex-col gap-6">
+<!-- History Item 1 -->
+<div class="flex gap-4 items-start pb-6 border-b border-slate-100 dark:border-slate-800">
+<div class="h-12 w-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden shrink-0">
+<img class="h-full w-full object-cover" data-alt="Wireless headphones thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsfGJi3nSzc8Ewld74zK36CWQUhBTqqzPJSVOfuc4K8D4FxBQXP5wp0siWdxp_ipYvpWdN_4Cqe09tpS1Nv2NyX9v7Rfm5s9NoO0ly7DD-13Af4g1Lotnf9l27wAtaSsIsQko8wnKy_2l4enXFgqpIBGuN313zKeCxbLl0ENXGiXR_9dFwWw8J9MjfN1V70FMmFneBPbXWrr3otmKi-bUB8HcmhLp1Ye0ibUOjuFO80woueEBVUDothy-dKsvr6tki33xOX9Zi6CQ"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-xs font-bold truncate max-w-[100px]">Sony WH-1000XM4</p>
+<span class="text-[10px] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded font-bold uppercase">Одобрено</span>
+</div>
+<p class="text-[11px] text-slate-500">10:45 • ID: 54918</p>
+</div>
+</div>
+<!-- History Item 2 -->
+<div class="flex gap-4 items-start pb-6 border-b border-slate-100 dark:border-slate-800">
+<div class="h-12 w-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden shrink-0">
+<img class="h-full w-full object-cover" data-alt="Wristwatch thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOyYeUwY7f4FVTk1Sk8x1jL3kKsJcYhEb0qDEUq3G4APp5A3ogrb4QQI_g-KeDO6tlpsc3cibzI8BGIoNy-JTTo2AzxxQdYH9z57ZIiZvPOLCwnHrvVnhzeSLwnjFbauI2rjPuD3BulyyNP9WE3LdB2rzMjdkfwIsjse9k6uvSsgCTjHYvrAehosOcbLZXph5n3wcBTLetpWa5WSBI25npBVJKzBB_vQMaWH7sE9fvCU2ljxHu8uxUwxrDCojTtMpcmUgy8mtMRY4"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-xs font-bold truncate max-w-[100px]">Casio G-Shock</p>
+<span class="text-[10px] bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-2 py-0.5 rounded font-bold uppercase">Отклонено</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-1">10:32 • ID: 54912</p>
+<p class="text-[10px] text-red-500 italic leading-tight">Причина: Некачественные фото</p>
+</div>
+</div>
+<!-- History Item 3 -->
+<div class="flex gap-4 items-start pb-6 border-b border-slate-100 dark:border-slate-800">
+<div class="h-12 w-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden shrink-0">
+<img class="h-full w-full object-cover" data-alt="Red Nike shoes thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzE1RDMN8gVushp1DEKhqIMsSD9_fGv4uqq5YEODiNr9_eNW14cIxl0c6P7ZUUj1XJsKtcgGV1Er92xXLbndgGvSwJMG2Nyhyazo-wNHNWjARko9IaUh4lSAb9tHUVzNNIAK0x26Ytjin_hl-J9LbI5h2sSouiUtVjshsISUBWfueMHXOE6Id0o3AEf4PE7fyf3Ci8f24PB_ILO5FfY3pLym2bSfkwASCNTqu1bk7xDEcDSl88wC3ohxPiZg50BgTc97Tvk5ypRIY"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-xs font-bold truncate max-w-[100px]">Nike Air Max</p>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded font-bold uppercase">Доработка</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-1">09:15 • ID: 54905</p>
+<p class="text-[10px] text-slate-600 dark:text-slate-400 italic leading-tight">Причина: Уточнить категорию</p>
+</div>
+</div>
+<button class="w-full py-3 text-sm font-medium text-slate-600 dark:text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors mt-2">
+                                    Загрузить больше
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

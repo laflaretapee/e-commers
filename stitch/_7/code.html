@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#065bf9",
+              "background-light": "#f5f6f8",
+              "background-dark": "#0f1623",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shopping_bag</span>
+<h2 class="text-2xl font-black tracking-tight">OZON</h2>
+</div>
+<button class="hidden lg:flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg font-bold">
+<span class="material-symbols-outlined">menu</span>
+                    Каталог
+                </button>
+</div>
+<div class="flex-1 max-w-2xl">
+<div class="relative group">
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2.5 pl-4 pr-12 focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Искать на Ozon" type="text"/>
+<div class="absolute right-0 top-0 h-full w-12 flex items-center justify-center bg-primary rounded-r-lg text-white cursor-pointer">
+<span class="material-symbols-outlined">search</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-center gap-0.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Войти</span>
+</div>
+<div class="flex flex-col items-center gap-0.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs font-medium">Избранное</span>
+</div>
+<div class="flex flex-col items-center gap-0.5 cursor-pointer text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-xs font-medium">Корзина</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-6 w-full">
+<!-- Breadcrumbs -->
+<nav class="flex text-sm text-slate-500 dark:text-slate-400 mb-6 gap-2">
+<a class="hover:text-primary" href="#">Электроника</a>
+<span>/</span>
+<a class="hover:text-primary" href="#">Смартфоны</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-slate-200">Apple</span>
+</nav>
+<!-- Product Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+<!-- Image Section -->
+<div class="lg:col-span-5 space-y-4">
+<div class="aspect-square bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 flex items-center justify-center group relative">
+<img class="max-w-full h-auto object-contain p-8" data-alt="High resolution product photo of a titanium smartphone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp9Wzfpg1R4JE7y30DwPu6_vP0nLWRZzkuVZ1c54OoTjHuQta7E2oaEh4g4kNmGRW7RLAjMfZoVQNlGEwXDJez4N9IsNuOnQWmxx9LI-GOoFfQWbLBh4Dt3TpReBVtQu_4PLiTOOYPNUsI4bvbNpX-mbQqqFgYlnWUCGDqaYB0v9_kiEMZXx30RguqSyeHy8JmXB0Xw1beX9-3_SHj3FgXd1z0hPaGxF7Sx51fet5ln-LqIKt5qbLcrSwnbDqjHiuRvj9lwEGpZaI"/>
+<button class="absolute top-4 right-4 p-2 bg-white/80 dark:bg-slate-900/80 rounded-full shadow-sm hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2">
+<div class="w-20 h-20 rounded-lg border-2 border-primary overflow-hidden cursor-pointer flex-shrink-0 bg-white">
+<img class="w-full h-full object-contain p-1" data-alt="Product thumbnail front view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrslEgcKACZjQl_qrPFIJdvicZgTQKNtsVMNfKcI5nNngJhp2UuqKMFOC8XMRc2gKMZEVyaVUtswvyn4zMjbn-81z8RKFY57yMtRpYjeGo9oSahmP-faAmTMvKjQBBPALB9u327bITIDogzRzQ3ilFg10I8to69ZiEumHXid9nNAa3Te8TKLScnC4Zk-fgw95TzjATRMs5yLk2xUZNlE073XJ7bfbLr-SD4zwC6go8Mhhd2qOdfr6yZKExSbFx1cx1PzXEJARoY0A"/>
+</div>
+<div class="w-20 h-20 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer flex-shrink-0 bg-white">
+<img class="w-full h-full object-contain p-1" data-alt="Product thumbnail side view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOv9HYwvSHGpROVGg0EiWIdTfKn6izs_okB_YBPOJFCwTpQ4ednEEy2E3GjKTtip6lEXhCYwLsJgjehS-JnH8htRqMMJk0aPyK2JK9BATpqdiAS0mbMNpdVs15gcPPh9Nmu7ZXkA20o0Jv6RzNESRZbZxg_JPb-abYTEuR2rn2GNcKWjwlRIUGOQml4K0Zv70-p9DvJPiFe2jCt71VcbGOg9EuyGTkQu-g1atPVHEGX7MR68zY4ba0npikL6nW7IjFL1ZixZaZprM"/>
+</div>
+<div class="w-20 h-20 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer flex-shrink-0 bg-white">
+<img class="w-full h-full object-contain p-1" data-alt="Product thumbnail back view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqFeIonEl_-DbJV5s4Yqs7LHb86_BJOndKsYQIsG0tnHoMpMPvvT9GrOannz5agE0PFL4EYMKe6Ym_P_1gR8L5tki2akfn8mIRPi0nTz0mnJSDtBM2lLS4JMJaLIzxQGLUH8TIQxRrpKJzir0ftBzVpB22PXxOznuQBkP5mgyM3U5_G84Zh2cg_YPJOUN5O3p0tta_HbQi0VhiFzbEMb84Qo9sQhllgje9E5nAr7jt7KwmMaPpyIyQK_g_VPlrGkLiqL9q9rdo7l4"/>
+</div>
+</div>
+</div>
+<!-- Content Section -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded text-sm font-bold">
+<span class="material-symbols-outlined text-base mr-1">star</span> 4.9
+                        </div>
+<span class="text-slate-500 text-sm">1,240 отзывов</span>
+</div>
+<h1 class="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white leading-tight">Смартфон Apple iPhone 15 Pro 256GB, "Натуральный титан"</h1>
+</div>
+<div class="space-y-4 py-4 border-y border-slate-200 dark:border-slate-800">
+<div>
+<span class="text-slate-500 block text-sm mb-1">Цвет: Натуральный титан</span>
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full border-2 border-primary bg-slate-300"></div>
+<div class="w-8 h-8 rounded-full border border-slate-200 bg-slate-800"></div>
+<div class="w-8 h-8 rounded-full border border-slate-200 bg-slate-100"></div>
+</div>
+</div>
+<div>
+<span class="text-slate-500 block text-sm mb-1">Память: 256 ГБ</span>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium">128 ГБ</button>
+<button class="px-4 py-1.5 rounded-lg border-2 border-primary text-primary text-sm font-bold">256 ГБ</button>
+<button class="px-4 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium">512 ГБ</button>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<h3 class="font-bold">Коротко о товаре</h3>
+<ul class="space-y-2 text-sm">
+<li class="flex justify-between">
+<span class="text-slate-500">Экран</span>
+<span class="text-right">6.1" OLED 120 Гц</span>
+</li>
+<li class="flex justify-between">
+<span class="text-slate-500">Процессор</span>
+<span class="text-right">Apple A17 Pro</span>
+</li>
+<li class="flex justify-between">
+<span class="text-slate-500">Основная камера</span>
+<span class="text-right">48 Мп + 12 Мп + 12 Мп</span>
+</li>
+<li class="flex justify-between">
+<span class="text-slate-500">Встроенная память</span>
+<span class="text-right">256 ГБ</span>
+</li>
+</ul>
+<a class="text-primary text-sm font-bold hover:underline" href="#specs">Все характеристики</a>
+</div>
+</div>
+<!-- Purchase Card -->
+<div class="lg:col-span-3">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm sticky top-24">
+<div class="mb-4">
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-black text-slate-900 dark:text-white">124 990 ₽</span>
+<span class="text-slate-400 line-through text-sm">149 990 ₽</span>
+</div>
+<div class="inline-flex items-center gap-1 bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full mt-1">
+                            −17%
+                        </div>
+</div>
+<div class="space-y-3 mb-6">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+                            Добавить в корзину
+                        </button>
+<button class="w-full bg-primary/10 hover:bg-primary/20 text-primary font-bold py-3 px-4 rounded-xl transition-all">
+                            Купить в один клик
+                        </button>
+</div>
+<div class="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-slate-400">local_shipping</span>
+<div>
+<p class="text-sm font-bold">Доставка Ozon</p>
+<p class="text-xs text-slate-500">Завтра, бесплатно</p>
+</div>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-slate-400">inventory_2</span>
+<div>
+<p class="text-sm font-bold">В наличии</p>
+<p class="text-xs text-slate-500">На складе более 10 шт.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-slate-400">verified_user</span>
+<div>
+<p class="text-sm font-bold">Оригинальный товар</p>
+<p class="text-xs text-slate-500">Продавец Ozon</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Details Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-slate-200 dark:border-slate-800" id="specs">
+<div class="lg:col-span-8 space-y-12">
+<section>
+<h2 class="text-2xl font-bold mb-6">Описание</h2>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        iPhone 15 Pro — первый iPhone, выполненный из титана аэрокосмического класса, с использованием того же сплава, который используется в космических кораблях для миссий на Марс. Титан обладает одним из лучших соотношений прочности к весу среди всех металлов, что делает эти модели Pro самыми легкими за всю историю. Вы заметите разницу, как только возьмете один из них в руки.
+                    </p>
+</section>
+<section>
+<h2 class="text-2xl font-bold mb-6">Характеристики</h2>
+<div class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+<div class="space-y-4">
+<h4 class="font-bold text-slate-400 uppercase text-xs tracking-wider">Экран</h4>
+<div class="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-sm">
+<span>Технология экрана</span>
+<span class="font-medium text-right">OLED</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-sm">
+<span>Диагональ экрана</span>
+<span class="font-medium text-right">6.1"</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-sm">
+<span>Разрешение</span>
+<span class="font-medium text-right">2556x1179</span>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-slate-400 uppercase text-xs tracking-wider">Процессор</h4>
+<div class="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-sm">
+<span>Процессор</span>
+<span class="font-medium text-right">Apple A17 Pro</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-sm">
+<span>Количество ядер</span>
+<span class="font-medium text-right">6</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Recommendations -->
+<section class="mt-20">
+<h2 class="text-2xl font-bold mb-8">Похожие товары</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<!-- Recommendation Item 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="aspect-square mb-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 relative overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="Blue smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUEuAuj8yzOOVY92hrPLxZM_Az1b1o5t8iN1-9UBN-kWJ25rCPIE6ZBn5lmdQKm2nIZwmdkoIFu-vUhesmKlTWDKivcjwmUifBTPgfNcmnAna6JqeOHfAENa5wgrAI8VRev1RPkPc39gNeuw6rJ86VP7U3MxTtkMha_1hVMdptIdhEyBcVQdc1p2_rvFZEMcd6QSv_kl2irfx66DKHBB0Mr_deHYBd8EHBDDomjMtnHW0xj2Bx-S4QXsdUjJhf4hA7wXwFScKGHqM"/>
+<button class="absolute bottom-2 right-2 p-1.5 bg-white/90 dark:bg-slate-900/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="space-y-1">
+<div class="text-lg font-black">119 990 ₽</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">iPhone 15 128GB, "Голубой"</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-yellow-400 fill-1">star</span>
+<span class="text-xs text-slate-400">4.8</span>
+</div>
+</div>
+</div>
+<!-- Recommendation Item 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="aspect-square mb-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 relative overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="Black smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALFnlCmrOiMaN3wR3YmxBjhbX25rNK-fs9TeChDHFutEl4M52xcSyPxwcmTc0Bs_gqCYdhdphgC-rbQBNEQs7f_kzg5LVjd-9gHJwm3FfEHbtJuu7y1es0ISTyQ60K64SRnbOlU42cMPkUy6zCLqX0D3z5qDAXP4nKKOZrMC1O8m9icY2PUdFyBkIFFExM6ldJF2iQJ6xU-ND5dfNkrYV_T-8MBSuAObQjsjfnuZb2IlX3zcN6Y9mM2yQSt5-JM1FxajbPfI5W8P0"/>
+<img class="w-full h-full object-contain" data-alt="Smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcyG_kNuPlg1T76If2QWDZcCapHwEBICM5P_aH_SK9zpmTQGF6kfFZ0UgR08Mier65MNEkPaUljiY5xiHw6DeJvYUFwTZacd5alaL-rXEIzL8lLl8IdJX4S1plpcUAKMEdeIaFxSw6W1kvb0tB98Rp-rMx-at88n2OWFsNDjxqnCoDlsEn2w_iDPM2fv-W7LMuorXYSuduAjXa1m1xlhVkCBNwarYiWQ11wqM4OZM8F0lU0AzX6PCUz6HQpD2p90_5jWg7SRzgSks"/>
+</div>
+<div class="space-y-1">
+<div class="text-lg font-black text-primary">135 990 ₽</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">iPhone 15 Pro Max 256GB, "Черный титан"</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-yellow-400 fill-1">star</span>
+<span class="text-xs text-slate-400">5.0</span>
+</div>
+</div>
+</div>
+<!-- Recommendation Item 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="aspect-square mb-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 relative overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="White smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDalq5vk80dp3tEWGrUENH01nQhvmGfp8vwAdMNT953AwvYrp1Pv3yyQ5EklicDaQ-zl6SEcqiHgiUwvr4wXvz8Kqqf9GSnESJrgYA28LtBQbYbRoFs934AZ629r0ANYxLEZZwygsVQeeo9991P2YOe3lKf9pTCOvMtT7nrUsLud9tiPh5blJiwBoGCGgtPNr8OgpBHQiPztd1klJxvIbHDD6_qgWM_6IAfAOadnNXk3myR06TCsWAHA6TirIy2IMdoub9mQzDEBhw"/>
+</div>
+<div class="space-y-1">
+<div class="text-lg font-black">115 990 ₽</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">iPhone 14 Pro 128GB, "Deep Purple"</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-yellow-400 fill-1">star</span>
+<span class="text-xs text-slate-400">4.9</span>
+</div>
+</div>
+</div>
+<!-- Recommendation Item 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="aspect-square mb-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 relative overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="Gold smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQaHHBAy4Np4XJFQOYgobzGDKT5WBa8jxM_DSIYphWOPN1MqgAjN_hKL39VbBdmPtLwXEn_XLIWb9yU_hk0vsotV8H7o7ukLFUigc3Roh9yb2oiD2s-eUMkPQldedTmh3xjAJ50jbtf-xrYyKftmqaK7ZfG0LzFRozgATyLsiiAODYpmjX4jeqjkaeU1dGjSrxTZ5sle2LXCuZr2hAATBjZ3z5C7JCF4QyzLT3LPWRyw9nNlqEfRP_jnjTSx8N-km9QRneEk9El3o"/>
+</div>
+<div class="space-y-1">
+<div class="text-lg font-black">98 490 ₽</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">Samsung Galaxy S23 Ultra, "Бежевый"</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-yellow-400 fill-1">star</span>
+<span class="text-xs text-slate-400">4.7</span>
+</div>
+</div>
+</div>
+<!-- Recommendation Item 5 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 hover:shadow-md transition-shadow group">
+<div class="aspect-square mb-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 relative overflow-hidden">
+<img class="w-full h-full object-contain" data-alt="Silver smartphone thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeMj1C4t_jln5xdbeOOGO8yzQ4WhHKPGXvLP0t-NlbKOu6kIq99nzQysa6_63HpUh-yGU5hj5A_mPCqGPRHYnB5KlDe6dkAnVOFKppCZNfGw_rqV2QbF_3UHUU4vQ0ozI5Zac7e2cq6Tw2UF4OaZllAWQ1ZE8Cze9euZtWfnqAZJ7I3q3SEcG_N2DsaxGPusXqxG9-uEHOpuNriVQKwcVLKFiUDDM72VMqM9VTix40Dn3CuinScxOmnNf2eJe405MCuVXzG_pzZWY"/>
+</div>
+<div class="space-y-1">
+<div class="text-lg font-black">102 990 ₽</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">Google Pixel 8 Pro 256GB, "Bay"</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm text-yellow-400 fill-1">star</span>
+<span class="text-xs text-slate-400">4.6</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20 py-12">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-2xl font-bold">shopping_bag</span>
+<h2 class="text-xl font-black tracking-tight uppercase">OZON</h2>
+</div>
+<p class="text-sm text-slate-500">© 1998 – 2024 ООО «Интернет Решения». Все права защищены.</p>
+</div>
+<div>
+<h4 class="font-bold mb-4">Покупателям</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary" href="#">Как сделать заказ</a></li>
+<li><a class="hover:text-primary" href="#">Оплата</a></li>
+<li><a class="hover:text-primary" href="#">Доставка</a></li>
+<li><a class="hover:text-primary" href="#">Возврат</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Компания</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary" href="#">Об Ozon</a></li>
+<li><a class="hover:text-primary" href="#">Вакансии</a></li>
+<li><a class="hover:text-primary" href="#">Реквизиты</a></li>
+<li><a class="hover:text-primary" href="#">Пресс-центр</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Помощь</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary" href="#">Чат поддержки</a></li>
+<li><a class="hover:text-primary" href="#">Горячая линия</a></li>
+<li><a class="hover:text-primary" href="#">Публичная оферта</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

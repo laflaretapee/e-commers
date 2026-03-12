@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Корзина - Ozon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-size: 24px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-8">
+<!-- Logo -->
+<div class="flex items-center gap-2 shrink-0">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<h1 class="text-2xl font-black tracking-tight text-primary">OZON</h1>
+</div>
+<!-- Search Bar -->
+<div class="flex-1 max-w-2xl">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Искать на Ozon" type="text"/>
+<button class="absolute inset-y-0 right-0 px-4 bg-primary text-white rounded-r-lg font-medium hover:bg-blue-600 transition-colors">
+                        Найти
+                    </button>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-6">
+<button class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Войти</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs font-medium">Избранное</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-xs font-medium">Корзина</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Left Column: Cart Items -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-3xl font-bold">Корзина <span class="text-slate-400 font-normal">3 товара</span></h2>
+</div>
+<!-- Select All Control -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-4 mb-4 flex items-center justify-between shadow-sm">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-medium group-hover:text-primary transition-colors">Выбрать все</span>
+</label>
+<button class="text-slate-500 hover:text-red-500 text-sm font-medium transition-colors">Удалить выбранные</button>
+</div>
+<!-- Cart Items List -->
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 flex gap-6 shadow-sm group">
+<div class="flex items-start pt-2">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="w-32 h-32 shrink-0 bg-slate-100 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Red stylish running sneakers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5cHM9ryF-yKoWmFvUeFY85kW1BKnF84gqD3aIOul22GdjuvWi1fC6l4welDbBnA8j8aZv1m6enCn5Fbi6B9n175UZKMqnDcVqVUw_Ly6u-1gE3Uxkwnkj4hlKmCUH9N3U4xVZKhLgX7i1W2r0P81YKStvdWjjU-pD-uSYF6Fs3yIZkUHZAK4QuR-e87lVTun2s5OtpmObv3_fHqgtiDoI-NUJvoJmx9BKSUakizGdi_svXgdVF_baN86DIawi_z1Yv6-KWI3Iip0"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between gap-4">
+<h3 class="font-medium text-lg leading-tight hover:text-primary cursor-pointer">Кроссовки Nike Air Max 270, мужские, цвет красный</h3>
+<div class="text-right">
+<div class="text-xl font-bold">12 490 ₽</div>
+<div class="text-xs text-slate-400 line-through">15 990 ₽</div>
+</div>
+</div>
+<p class="text-sm text-slate-500 mt-1">Цвет: Красный • Размер: 42</p>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400"><span class="material-symbols-outlined text-sm leading-none">remove</span></button>
+<span class="w-10 text-center font-semibold">1</span>
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400"><span class="material-symbols-outlined text-sm leading-none">add</span></button>
+</div>
+<button class="text-slate-400 hover:text-primary flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">favorite</span>
+                                        В избранное
+                                    </button>
+<button class="text-slate-400 hover:text-red-500 flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">delete</span>
+                                        Удалить
+                                    </button>
+</div>
+<div class="text-sm text-green-600 font-medium bg-green-50 px-2 py-1 rounded">Осталось 2 шт.</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 flex gap-6 shadow-sm group">
+<div class="flex items-start pt-2">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="w-32 h-32 shrink-0 bg-slate-100 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="High quality wireless headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ZjNAmBHI1MXNh7yQjUgRe-ROIMgGIB2kdUR7GiI-_Y28NFbrAN1ZlBY-iqT1DdqW9b5hM_K6QsHAy8G6Qyc2npDt6-a5Ke8TB2-BvOHel69Y4V670i7SQMWUxw4e1Fwt7JoaGyyuyCfihGDnQB5YnwJsRkCxLxkSsQz80tdJ1CJrhsespCQ8kquGfBAC0hGIQeWDN1CziPGfpn8tWXmcIoSx_RTcbqSDmPoVeRDnBVs7-A2SK3X3-fwWhclyRtVyLY2Yous8XDc"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between gap-4">
+<h3 class="font-medium text-lg leading-tight hover:text-primary cursor-pointer">Беспроводные наушники Sony WH-1000XM4, Black</h3>
+<div class="text-right">
+<div class="text-xl font-bold">24 990 ₽</div>
+</div>
+</div>
+<p class="text-sm text-slate-500 mt-1">Цвет: Черный</p>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400"><span class="material-symbols-outlined text-sm leading-none">remove</span></button>
+<span class="w-10 text-center font-semibold">1</span>
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400"><span class="material-symbols-outlined text-sm leading-none">add</span></button>
+</div>
+<button class="text-slate-400 hover:text-primary flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">favorite</span>
+                                        В избранное
+                                    </button>
+<button class="text-slate-400 hover:text-red-500 flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-lg">delete</span>
+                                        Удалить
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary Card -->
+<div class="w-full lg:w-96">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-md sticky top-24 border border-slate-100 dark:border-slate-800">
+<h3 class="text-xl font-bold mb-6">Ваш заказ</h3>
+<div class="space-y-3 mb-6">
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Товары (2)</span>
+<span>40 980 ₽</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Скидка</span>
+<span class="text-red-500">-3 500 ₽</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400">
+<span>Доставка</span>
+<span class="text-green-600 font-medium">Бесплатно</span>
+</div>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-800 pt-4 mb-6">
+<div class="flex justify-between items-end">
+<span class="text-lg font-bold">Итого</span>
+<div class="text-right">
+<div class="text-2xl font-black text-slate-900 dark:text-white">37 480 ₽</div>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/20 transition-all transform active:scale-[0.98] mb-4">
+                        Перейти к оформлению
+                    </button>
+<div class="bg-blue-50 dark:bg-primary/10 rounded-lg p-4 flex gap-3">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<div class="text-xs text-slate-700 dark:text-slate-300">
+<p class="font-bold mb-1">Бесплатная доставка</p>
+<p>Пункты выдачи, курьером или почтой</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendation Section -->
+<section class="mt-16">
+<h3 class="text-2xl font-bold mb-8">Рекомендуем также</h3>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+<!-- Rec Item 1 -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Modern minimalist wrist watch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCavvU1ONRSTJiaWKf3rDrQ0rXI3xhLIkbK5eBOBV8sqi9UpYrOvKPMGs0dLBjTXUkJYClTaFcMox45Pk0wKEg0uXou4RUiWjCl-IGcWohKL321oFgqbZ5PgasWzM8SxjjOsg6v1IU69ibwj4PsjGmIyZllhZelZGx4TRi26NuR-pSBWN1EdHwKh7uH667fzpxtJhFaXZgzXagq6tzvudlbjXa3sKqo3s2C9HAey4W51fCfBAvL6DlSMbgNXobpwrLnRXi_xwfQJLo"/>
+</div>
+<div class="text-lg font-bold mb-1">4 990 ₽</div>
+<h4 class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Наручные часы Minimalist Black Edition</h4>
+<button class="w-full py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">В корзину</button>
+</div>
+<!-- Rec Item 2 -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="New generation tablet device" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB28wKSVIg_3BQrpeT-j2F4JUlDuM7MWO0DSB3XM1vOYh3bRUqpHop4xbys7qn2QJI0r5wlD6jfZxa0l2fywfNDO_ZrV7xkDI4eceAU8cs7qxJjaifLbInU1RWirpobbzQnTEAjy4sY4mjjczUaXANq42OI0bMguHvNFpLprRWg7Hh9XbMesXTMpHfdPtegOgPK6eio_EMkyCpl4_ORFmRWaM90jBmKtNrYz51sESYk8G7NJTvwKSJ_-B8-DImcLT8xzdbkKrwA8MY"/>
+</div>
+<div class="text-lg font-bold mb-1">59 990 ₽</div>
+<h4 class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Планшет Pro Tab 12.9" 256GB Silver</h4>
+<button class="w-full py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">В корзину</button>
+</div>
+<!-- Rec Item 3 -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Stylish black sunglasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeOUmE-EkZlp-MQlKekvxpv-wZJewRnJ7uwQKWr1gPRxItsgHg_p1LR-qDnXi-zh5OnB4Q_TXIaZXVfeyOa8SaD8brX-PHw5ILsjiTPRcn7zAj1njk4yC8kQAREufRp5GzkR77W85X0ePlQiZ9Zy_jm6340avJSWqa9oBdXL34163d1oYh4TsaivTmy4Un3PobyH3h5nzof0SifL4uxaXbRbuSPgLOqVAwKYMAHHlIcrzlEc3rMH3auBEcrWEAZq6pA2_Jgohi_6k"/>
+</div>
+<div class="text-lg font-bold mb-1">2 450 ₽</div>
+<h4 class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Солнцезащитные очки Wayfarer Retro</h4>
+<button class="w-full py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">В корзину</button>
+</div>
+<!-- Rec Item 4 -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Professional camera lens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6t7cVh62ZV_y9pvb95cihhxVvZ64Shu6HOVLcQC7iqmnr8JHp-ZMLpxc5dG66m_zRv7C48lKPGAq_lvtHRYXMydJI0M_M-s9L64ZpA9N2QiznOJsKmuBXDU49h5gr10_uAQe9zoXeayjjNafKW1TR2DN2YjTmNcQsduEokSYUhybnEzNnACsuE8_MQfN48Jqdzbdy6riZSjZIM6LgT4hMsX2dEH8rJEhdqCklEcdwymMr3v7MLwepyznddRNxbuQke3UdGHvIVK8"/>
+</div>
+<div class="text-lg font-bold mb-1">89 000 ₽</div>
+<h4 class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Объектив Prime Lens 85mm f/1.4</h4>
+<button class="w-full py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">В корзину</button>
+</div>
+<!-- Rec Item 5 -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Vintage film camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkV6OdfrGzHZfuWAAdEoed4pt4t8o-QvGtacR6M7xpkJtFJt5xdEtod5PIxAMEt9F9GPKoa0HUGzzPNz7PQ7XB7bjHOz_fM0AUzxZxgWc0Lu8EqJbdjOwQ7lBP14_vPdPT-Yc3_M-a0l7SB86QAm10_EmQLPEm1XMzHmWH3Qe-X5qcEOg6OHBtmrXfjzm1rkLTvfMMwhxCfKky0JYvLyVZztszvhKzgXZoBut33seivearkMUZr9RtszeocBmMcoEkP6MKSgzEcq8"/>
+</div>
+<div class="text-lg font-bold mb-1">12 800 ₽</div>
+<h4 class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Фотоаппарат пленочный Retro Shot</h4>
+<button class="w-full py-2 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">В корзину</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-20">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<h5 class="font-bold mb-4">Покупателям</h5>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Как сделать заказ</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Доставка</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Оплата</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Возврат</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-4">Партнерам</h5>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Продавайте на Ozon</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Установите постамат</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Открыть пункт выдачи</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-4">Компания</h5>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">О нас</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Реквизиты</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Вакансии</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-4">Мы в соцсетях</h5>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-400 text-center">
+                © 1998 – 2024 ООО «Интернет Решения». Все права защищены.
+            </div>
+</div>
+</footer>
+</body></html>

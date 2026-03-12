@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Каталог товаров | Ozon Style</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 lg:px-8">
+<div class="flex h-16 items-center justify-between gap-4">
+<!-- Logo & Catalog Button -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shopping_bag</span>
+<h1 class="text-2xl font-bold tracking-tight">Ozon</h1>
+</div>
+<button class="hidden md:flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">menu</span>
+                        Каталог
+                    </button>
+</div>
+<!-- Search Bar -->
+<div class="flex-1 max-w-2xl">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full p-2.5 pl-10 text-sm text-slate-900 bg-slate-100 border border-transparent rounded-lg focus:ring-primary focus:border-primary dark:bg-slate-800 dark:placeholder-slate-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary outline-none transition-all" placeholder="Искать на Ozon" type="text"/>
+<button class="absolute inset-y-0 right-0 flex items-center px-4 bg-primary text-white rounded-r-lg hover:bg-primary/90">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+<!-- User Controls -->
+<div class="flex items-center gap-1 md:gap-4">
+<a class="flex flex-col items-center p-2 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium hidden sm:block">Войти</span>
+</a>
+<a class="flex flex-col items-center p-2 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] font-medium hidden sm:block">Избранное</span>
+</a>
+<a class="flex flex-col items-center p-2 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors relative" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-[10px] font-medium hidden sm:block">Корзина</span>
+<span class="absolute top-1 right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Sub-header categories -->
+<nav class="bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 py-2 overflow-x-auto">
+<div class="max-w-7xl mx-auto px-4 lg:px-8 flex gap-6 whitespace-nowrap text-sm font-medium">
+<a class="text-primary hover:opacity-80" href="#">🔥 Акции</a>
+<a class="hover:text-primary" href="#">Электроника</a>
+<a class="hover:text-primary" href="#">Одежда и обувь</a>
+<a class="hover:text-primary" href="#">Дом и сад</a>
+<a class="hover:text-primary" href="#">Детские товары</a>
+<a class="hover:text-primary" href="#">Красота и здоровье</a>
+<a class="hover:text-primary" href="#">Бытовая техника</a>
+<a class="hover:text-primary" href="#">Спорт</a>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-4 lg:px-8 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-64 shrink-0 space-y-6">
+<div>
+<h3 class="text-lg font-bold mb-4">Фильтры</h3>
+<!-- Price Filter -->
+<div class="mb-6">
+<p class="font-semibold text-sm mb-3">Цена, ₽</p>
+<div class="flex items-center gap-2">
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-primary focus:border-primary" placeholder="от" type="number"/>
+<span class="text-slate-400">—</span>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-primary focus:border-primary" placeholder="до" type="number"/>
+</div>
+</div>
+<!-- Brands Filter -->
+<div class="mb-6">
+<p class="font-semibold text-sm mb-3">Бренд</p>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm group-hover:text-primary">Apple</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm group-hover:text-primary">Samsung</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm group-hover:text-primary">Xiaomi</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm group-hover:text-primary">HUAWEI</span>
+</label>
+<button class="text-xs text-primary font-medium hover:underline mt-2">Показать все</button>
+</div>
+</div>
+<!-- Rating Filter -->
+<div class="mb-6">
+<p class="font-semibold text-sm mb-3">Рейтинг</p>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="text-primary focus:ring-primary" name="rating" type="radio"/>
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-sm">5.0</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="text-primary focus:ring-primary" name="rating" type="radio"/>
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="material-symbols-outlined text-sm text-slate-300">star</span>
+</div>
+<span class="text-sm">и выше</span>
+</label>
+</div>
+</div>
+<!-- Discount Switch -->
+<div class="flex items-center justify-between py-4 border-t border-slate-200 dark:border-slate-800">
+<span class="text-sm font-medium">Только со скидкой</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</aside>
+<!-- Product Grid Container -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold">Электроника <span class="text-slate-400 font-normal text-sm ml-2">1 452 товара</span></h2>
+<div class="flex items-center gap-2 text-sm font-medium">
+<span class="text-slate-500">Сортировать:</span>
+<select class="bg-transparent border-none focus:ring-0 cursor-pointer text-primary">
+<option>Популярные</option>
+<option>Дешевле</option>
+<option>Дороже</option>
+<option>По рейтингу</option>
+</select>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Product Card 1 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Смартфон" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="High-end smartphone on a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXjV0lYlxGarzmtoju32xJizb2GkmBeuqOCq3BzL7qq9IidplWFExKUH379dgVMhZ0DGyJnZEfeJz_QpZ2ZDI4GvZiasIByLKZUcwgp5oDsCqvDQ-wVeX4s9bbboWQTxiC4goomQ8LcdfnUGgrABfQmerqz596-SPXgem-wbDbZrtn_uQFGoZdVV8imX5hhdLvnXaCc5rnsT40dCeNRqkUQdnkdzY6L0dcnVO3ufv8uFrE2kASRAXtba9ri4qae6n93YUQuXbT7mE"/>
+<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-15%</span>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold text-red-500">84 990 ₽</span>
+<span class="text-sm text-slate-400 line-through">99 990 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Смартфон Apple iPhone 15 128GB, Blue</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.9</span>
+<span class="text-xs text-slate-400">(2 143 отзыва)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Планшет" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Modern tablet propped up on desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANKLNF_b5b9FXIM6CsItdT74Sfu8pkMzUZeEOX0Oz9GnbesC2V6EFlk7yGyuyNZQTPAv8ln4clmy_6VJUZ7EZeDdqSspChenY42Xf4MiMOteX5xATpLxC-Z-7yDO2sDR6z043U1NLBpUkyuW0jgQENsJxC-oKy7NM4Bs3rZ4NMdowGhKVU0XbD8YvNJLKFCayhzR_8m-SQCfxsRgk7AT25r6-09OAbWzfY8vP_cB2FVxprNMkL7fCO39ztD9BGLuDP-k8ausRz2jQ"/>
+<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-10%</span>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold">54 290 ₽</span>
+<span class="text-sm text-slate-400 line-through">61 000 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Планшет Samsung Galaxy Tab S9 FE 5G 128GB</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.8</span>
+<span class="text-xs text-slate-400">(856 отзывов)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Наушники" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Over-ear noise cancelling headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB9u5Kw9S3I8B7B8BWD3ceBcIXZxsZFg4J9YL0h3dqF1AqBU47ZjgHqTv4REXjfkEdJ6gTwKxrmrtCoD3ftqylHBW4rgns8kA8N0DNXwiD11kUB43_GITJF4UJd6AHBxmkpkZAP4XFzSDNUQQgBaBsF0-9IaKXOzF0L2xzxldDjyzIN-W30Of_5so-1hrWge8_Lltk7rPUQ3APat67g2uT9TCKihw8MienCwOKz-KrnJkpfLFKj9Y7HhSDbCguEXaW35_gCtiR1Js"/>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold">12 400 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Наушники Sony WH-1000XM4 Wireless Noise Cancelling</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">5.0</span>
+<span class="text-xs text-slate-400">(421 отзыв)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Часы" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Minimalist white smart watch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKC9Sa3zDZoABYDDJJiv_6A9dUtHen6pM_Wzuht-t56xz8cc0ySiRrtJm14ptMpYLyGJG1USDKOjgIZbHblwhel7LMrzEDHPWB-bEHj4Qq6nzHMLgsAeGQH1A8Q6w7FanrIzc6YEr7krYjGj5xEI4FcOZuQ5VErWYFiLs_nOvpoZ9JeQ0HCfQqb11aS_nN5PDKNZ2sWzj1HZLbnMEcDIppBQ98btHTE7_aNtl07ZDm8DsVPFi0wR8aum-g3PnvrtGXeTgZloDkTJ0"/>
+<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-30%</span>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold text-red-500">18 500 ₽</span>
+<span class="text-sm text-slate-400 line-through">26 400 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Смарт-часы Xiaomi Watch S1 Active, Space Black</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.7</span>
+<span class="text-xs text-slate-400">(512 отзывов)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Additional repeated items for grid feeling -->
+<!-- Product Card 5 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Ноутбук" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Sleek modern laptop on office desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA14CHxdPBaunXok7btT2f4rZr7a7SNM2re9jE8zBjIjQNXtYsL8t-Bfh7alVwvCknUHAz6gKLZYXqS2mm5XBGbmBKn_6ibrhq5KFqSQk3nYvG9SJ1xfkOvx1247KDKDUF6QSNyivfikXHJyBDgQ0urxgDlDQawJyxxNXbavDCFsflPwd0VjHlqfsoQeAk78dIGDKnN86ObfQmiG39p_xHoDVlgJ-6EyfkibVSyyoPQ_gTAbRCjT3oFAfVaagDlQ6ZmzPBfYxcyqa4"/>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold">129 990 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Ноутбук HUAWEI MateBook X Pro Core i7 16GB/1TB</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.9</span>
+<span class="text-xs text-slate-400">(156 отзывов)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Часы" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Close up of mechanical wristwatch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWL6v-ATqzQSwxq4iCaeR4zZIxEQsj5RcQFY2VRoYjehzWVzlIRU2radyzme0muMZUuhEHGiVz7BI4tvNF6TV_GlG0g6Hzze_AxIhqnrF1hqALAEQgv-KqpkR-hld-HQKeZrATY6JebUA2cXPh3GTUTf-jScQsuObznnjZUhhiK3iII9w8HblH8SGAZy37FoJ91C6T5P-YnUDNQIzL1meAVK__ktrYLzAq1PWxqid5FquhFqa-PNwwTwV2C1WAiJx8cloXk-kZwg8"/>
+<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-5%</span>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold">3 990 ₽</span>
+<span class="text-sm text-slate-400 line-through">4 200 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Настенные часы Minimalist Home Decor Black</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.5</span>
+<span class="text-xs text-slate-400">(43 отзыва)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Смартфон" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Newest Samsung Galaxy smartphone display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfQNIladP355_0ta12MO7E0Lg0KFYYFJQlzOQ1Z_dK-H7LUmVOV028dy14YQdMuFuw55u4FmKEIolcNIdSOml1ax_NXqEkWg2D91nDAEAPAZK7ew05-5P1woae5dkfT5ohdj55E_ElrQ2jd9hxCBUuQ2rhdFM3EN4_xYQq7Ao1J2xsPh1uuzmwuDWPIUbgtKycTrSOKE6eGhxz89b-KlGPvcqZhR0k7qGC0ybgfQ4StnNd87tylP2EFLa2OPied2nvErHnkEw9CqE"/>
+<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">-22%</span>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold text-red-500">72 100 ₽</span>
+<span class="text-sm text-slate-400 line-through">92 000 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Смартфон Samsung Galaxy S23 Ultra 256GB Green</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.9</span>
+<span class="text-xs text-slate-400">(1 092 отзыва)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-square bg-slate-100 dark:bg-slate-700">
+<img alt="Гарнитура" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Professional gaming headset with RGB lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6ENSnTSApFBaZHidSAci-enmwmz_abZEwgfMwleqWOTcAVXQjcEgBzl5bfwcvfSlS3PeI89wOwqrfFWOhgDF16FT5TqtDHAc9bX-ZX4TxoAZKVFHCRsZ69x7Kiylsiy9bI_B6UZRatRC6NG0Ba0RGQET62xwOu4V70UBhHqFSXHx3GyRQQvmozFQfTPFmPUA8ZB1RiTVhWoNL_zGdf8G1SffhmKpYYpISV-mPGxmkXs3CerrbbQjrZASjb4dOVxN0ndjGq3lsO4w"/>
+<button class="absolute top-2 right-2 p-1.5 bg-white/80 dark:bg-slate-900/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">favorite</span>
+</button>
+</div>
+<div class="p-4 space-y-2">
+<div class="flex items-baseline gap-2">
+<span class="text-lg font-bold">5 600 ₽</span>
+</div>
+<h3 class="text-sm font-medium line-clamp-2 hover:text-primary cursor-pointer transition-colors">Игровая гарнитура Razer Kraken V3 X USB Black</h3>
+<div class="flex items-center gap-1">
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-xs">star</span>
+</div>
+<span class="text-xs font-semibold">4.6</span>
+<span class="text-xs text-slate-400">(312 отзывов)</span>
+</div>
+<button class="w-full mt-2 bg-primary text-white py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                                В корзину
+                            </button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center gap-1">
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">2</button>
+<button class="w-10 h-10 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 font-medium">12</button>
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20 py-12">
+<div class="max-w-7xl mx-auto px-4 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<h4 class="font-bold mb-4">Покупателям</h4>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">Как сделать заказ</a></li>
+<li><a class="hover:text-primary" href="#">Способы оплаты</a></li>
+<li><a class="hover:text-primary" href="#">Доставка</a></li>
+<li><a class="hover:text-primary" href="#">Возврат товара</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Партнерам</h4>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">Продавайте на Ozon</a></li>
+<li><a class="hover:text-primary" href="#">Открыть пункт выдачи</a></li>
+<li><a class="hover:text-primary" href="#">Для брендов</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Компания</h4>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">О компании</a></li>
+<li><a class="hover:text-primary" href="#">Вакансии</a></li>
+<li><a class="hover:text-primary" href="#">Пресс-центр</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-4">Мы в соцсетях</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">alternate_email</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-sm text-slate-400">
+                © Ozon 1998 – 2024. Все права защищены.
+            </div>
+</div>
+</footer>
+</body></html>

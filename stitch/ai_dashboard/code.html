@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#065bf9",
+                "background-light": "#f5f6f8",
+                "background-dark": "#0f1623",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<title>AI Admin Analytics Console</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div>
+<h1 class="font-bold text-lg leading-none">NeuralCore</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Enterprise Admin</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">memory</span>
+                    Models
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+                    Active Jobs
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+                    Analytics
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">database</span>
+                    Datasets
+                </a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+<p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Usage Limit</p>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[72%]"></div>
+</div>
+<p class="text-[10px] mt-2 text-slate-500">72% of monthly compute tokens</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-10">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm outline-none" placeholder="Search models, jobs, or logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:border-slate-800 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-sm font-semibold leading-none">Admin User</p>
+<p class="text-[10px] text-slate-500 mt-1">Super Admin</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center border border-slate-200 dark:border-slate-700" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDk8Wq0ySJqacj_FVM73JWI2In37sygjA9H9PfuLlFP6Fd7QtSUiT5eJyNmCKJaKj5sPjSlzQeomib64Twth83E4PPgvHnQKHToCsRs50yOng_yxUbVUoYPhTjU6BJLwZ6SKbdS-J5GWp41xEg-H4nljCa5E9Jmjok6kgsk-r78dMYnOmiVL-Ul2XpJUWl0MVVZXq11KBRz_HXKZpvHejNVOUITJkPZEoeMqQQguiAEjeTIJm3VntLCzW72D4UcSkvkDy_mxK84VNs')"></div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8 space-y-8">
+<!-- Page Title -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight">System Overview</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Real-time performance monitoring and job orchestration.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-sm">download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">add</span>
+                            Deploy New Model
+                        </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="text-xs font-bold text-emerald-600">+0.2%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-4 font-medium">Model Accuracy</p>
+<h3 class="text-2xl font-bold mt-1 tracking-tight">98.4%</h3>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-xs font-bold text-red-500">-5%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-4 font-medium">Active Jobs</p>
+<h3 class="text-2xl font-bold mt-1 tracking-tight">42</h3>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<span class="text-xs font-bold text-emerald-600">+12%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-4 font-medium">Total Inferences</p>
+<h3 class="text-2xl font-bold mt-1 tracking-tight">1.2M</h3>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<span class="text-xs font-bold text-slate-500">Stable</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-4 font-medium">Avg Latency</p>
+<h3 class="text-2xl font-bold mt-1 tracking-tight">142ms</h3>
+</div>
+</div>
+<!-- Main Chart & Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold">Inference Events</h4>
+<p class="text-xs text-slate-500">Traffic distribution across all nodes (Last 24h)</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                    Success
+                                </div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+                                    Rate Limit
+                                </div>
+</div>
+</div>
+<!-- Visual Chart Placeholder -->
+<div class="h-[280px] w-full relative flex items-end gap-2 group">
+<!-- SVG Grid Background -->
+<div class="absolute inset-0 grid grid-rows-5 gap-0 pointer-events-none">
+<div class="border-t border-slate-100 dark:border-slate-800"></div>
+<div class="border-t border-slate-100 dark:border-slate-800"></div>
+<div class="border-t border-slate-100 dark:border-slate-800"></div>
+<div class="border-t border-slate-100 dark:border-slate-800"></div>
+<div class="border-t border-slate-100 dark:border-slate-800"></div>
+</div>
+<!-- Simple Bar Chart Representation -->
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all rounded-t h-[40%]"></div>
+<div class="flex-1 bg-primary/30 hover:bg-primary/50 transition-all rounded-t h-[55%]"></div>
+<div class="flex-1 bg-primary/40 hover:bg-primary/60 transition-all rounded-t h-[70%]"></div>
+<div class="flex-1 bg-primary/60 hover:bg-primary/80 transition-all rounded-t h-[85%]"></div>
+<div class="flex-1 bg-primary/50 hover:bg-primary/70 transition-all rounded-t h-[60%]"></div>
+<div class="flex-1 bg-primary/30 hover:bg-primary/50 transition-all rounded-t h-[45%]"></div>
+<div class="flex-1 bg-primary/40 hover:bg-primary/60 transition-all rounded-t h-[75%]"></div>
+<div class="flex-1 bg-primary/60 hover:bg-primary/80 transition-all rounded-t h-[95%]"></div>
+<div class="flex-1 bg-primary/70 hover:bg-primary/90 transition-all rounded-t h-[80%]"></div>
+<div class="flex-1 bg-primary/50 hover:bg-primary/70 transition-all rounded-t h-[50%]"></div>
+<div class="flex-1 bg-primary/40 hover:bg-primary/60 transition-all rounded-t h-[65%]"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all rounded-t h-[30%]"></div>
+<div class="flex-1 bg-primary/40 hover:bg-primary/60 transition-all rounded-t h-[55%]"></div>
+<div class="flex-1 bg-primary/50 hover:bg-primary/70 transition-all rounded-t h-[75%]"></div>
+<div class="flex-1 bg-primary/70 hover:bg-primary/90 transition-all rounded-t h-[90%]"></div>
+<div class="flex-1 bg-primary/60 hover:bg-primary/80 transition-all rounded-t h-[85%]"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-slate-400 font-medium uppercase tracking-widest">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>23:59</span>
+</div>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<h4 class="text-lg font-bold mb-6">Recent Log Activity</h4>
+<div class="space-y-6 flex-1">
+<div class="flex gap-4">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-emerald-500 shrink-0"></div>
+<div>
+<p class="text-sm font-medium">Model Deployment Successful</p>
+<p class="text-xs text-slate-500 mt-1">Llama-3-70b-v2 deployed to Node-A4</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">2 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-primary shrink-0"></div>
+<div>
+<p class="text-sm font-medium">Compute Scale Up</p>
+<p class="text-xs text-slate-500 mt-1">Added 4x H100 instances to Training Cluster</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">45 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-amber-500 shrink-0"></div>
+<div>
+<p class="text-sm font-medium">Memory Warning</p>
+<p class="text-xs text-slate-500 mt-1">Node-B12 reaching 85% VRAM capacity</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">1 hour ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></div>
+<div>
+<p class="text-sm font-medium">Scheduled Backup</p>
+<p class="text-xs text-slate-500 mt-1">Vector DB snapshot completed</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase">3 hours ago</p>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-sm font-medium transition-colors">
+                            View All Logs
+                        </button>
+</div>
+</div>
+<!-- Active Models List -->
+<div class="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="flex items-center justify-between mb-6 px-2">
+<h4 class="text-lg font-bold">Currently Active Models</h4>
+<div class="flex gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                All Systems Operational
+                            </span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
+<th class="px-4 py-3 pb-4">Model Name</th>
+<th class="px-4 py-3 pb-4">Status</th>
+<th class="px-4 py-3 pb-4">Accuracy</th>
+<th class="px-4 py-3 pb-4">Avg Latency</th>
+<th class="px-4 py-3 pb-4 text-right">Throughput</th>
+<th class="px-4 py-3 pb-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">LLM</div>
+<div>
+<p class="text-sm font-semibold">Llama-3-70b-v2</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tight">Large Language Model</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-medium">Production</span>
+</td>
+<td class="px-4 py-4 text-sm font-medium">99.1%</td>
+<td class="px-4 py-4 text-sm text-slate-500">240ms</td>
+<td class="px-4 py-4 text-right text-sm font-medium">1.2k req/s</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xs">CV</div>
+<div>
+<p class="text-sm font-semibold">ResNet-152-Object</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tight">Computer Vision</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-medium">Production</span>
+</td>
+<td class="px-4 py-4 text-sm font-medium">97.8%</td>
+<td class="px-4 py-4 text-sm text-slate-500">45ms</td>
+<td class="px-4 py-4 text-right text-sm font-medium">8.4k req/s</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs">TR</div>
+<div>
+<p class="text-sm font-semibold">En-Ru-NMT-Transformer</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tight">Translation Engine</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-xs font-medium">Testing</span>
+</td>
+<td class="px-4 py-4 text-sm font-medium">94.2%</td>
+<td class="px-4 py-4 text-sm text-slate-500">120ms</td>
+<td class="px-4 py-4 text-right text-sm font-medium">340 req/s</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xs">ASR</div>
+<div>
+<p class="text-sm font-semibold">Whisper-V3-Base</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-tight">Speech Recognition</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium">Paused</span>
+</td>
+<td class="px-4 py-4 text-sm font-medium">-</td>
+<td class="px-4 py-4 text-sm text-slate-500">-</td>
+<td class="px-4 py-4 text-right text-sm font-medium">0 req/s</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Simple Footer -->
+<footer class="p-8 mt-auto text-center border-t border-slate-200 dark:border-slate-800">
+<p class="text-xs text-slate-400">© 2024 NeuralCore AI Systems. Node Cluster ID: 88AF-09-PX. Last sync: 12:45 PM.</p>
+</footer>
+</main>
+</div>
+</body></html>

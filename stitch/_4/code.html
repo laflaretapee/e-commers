@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Настройка рекомендаций - Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col">
+<div class="p-6">
+<h1 class="text-xl font-bold text-primary">Admin Panel</h1>
+<p class="text-xs text-slate-500 uppercase tracking-wider mt-1">E-commerce Pro</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-medium">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="text-sm font-medium">Marketing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-sm font-bold">Recommendations</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Admin user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC80-kFUGgPVTgjrQoeamXDa2O4ioYsBt4Ln9XnkzHPKRnAqSYR-uvy__srWxyYxcuzsBSe5nq-uYkGI_9FuZRRuV3WVjKRVMmOCjZVS2J3BGIN72eG95SRy2NnpElLXUHdDhngWMbc1ZfqNzhe9o1wIeHQH4kXgb81Rg0PlCf_Zyn89suuUr-Jw6Xwej6I77IwIvQ9uirsWaQt58ecpMyf9Nd4gnSy5h5SpY5D8rw9-PYsPBXUUHCVUBrGZ4cLtbCnI0iPBUG2JE"/>
+</div>
+<div>
+<p class="text-xs font-bold">Alex Johnson</p>
+<p class="text-[10px] text-slate-500">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark p-8">
+<header class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Настройка рекомендаций</h2>
+<p class="text-slate-500 mt-1">Управление алгоритмами выдачи товаров и ручные подборки</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold rounded-lg hover:bg-slate-50 transition-colors">
+                        Preview Store
+                    </button>
+<button class="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 transition-shadow shadow-lg shadow-primary/20">
+                        Save Changes
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-6">
+<!-- Analytics Section -->
+<div class="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold">CTR Recommendation Blocks</h3>
+<select class="text-xs border-slate-200 dark:border-slate-700 rounded bg-transparent px-2 py-1">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<!-- Placeholder for Chart -->
+<div class="h-64 flex items-end justify-between gap-2 px-2">
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[45%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">2.4%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[60%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">3.1%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[55%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">2.8%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[80%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">4.2%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[40%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">2.1%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[70%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">3.6%</div>
+</div>
+<div class="w-full bg-primary/10 dark:bg-primary/5 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all h-[95%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded">5.0%</div>
+</div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-400 mt-4 px-2">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<!-- Toggles Section -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+<h3 class="text-lg font-bold px-2">Home Page Recommendations</h3>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div>
+<p class="font-bold text-sm">AI-based Recommendations</p>
+<p class="text-xs text-slate-500">Personalized for each user</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div>
+<p class="font-bold text-sm">Best Sellers</p>
+<p class="text-xs text-slate-500">Top 30 days trends</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div>
+<p class="font-bold text-sm">Recently Viewed</p>
+<p class="text-xs text-slate-500">History-based products</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Manual Selection Table -->
+<div class="col-span-12 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h3 class="text-lg font-bold">'Hero' Featured Products</h3>
+<p class="text-sm text-slate-500">Manually selected items for the main slider</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-lg text-sm w-full md:w-64 focus:ring-2 focus:ring-primary/20" placeholder="Search products..." type="text"/>
+</div>
+<button class="flex items-center gap-1 bg-primary text-white px-3 py-2 rounded-lg text-sm font-bold hover:bg-primary/90">
+<span class="material-symbols-outlined text-sm">add</span> Add Item
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 text-[10px] uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Product</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4">Inventory</th>
+<th class="px-6 py-4">Price</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-700 flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Minimalist wrist watch product" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU8FRC6qoYgySpfqopXoYYwIK5KRY-QEuNWE3wo7DI1yujbk7BeN6Y9peZyghVFG5mIJ4vZIg3HXDdQdg3lK_1alQO9XC0vciaVr6N74pqGFRt0YKp-tu0QQfWaJrykvNlZSNJgTHhPISvVucrI1LgXJcmadqWNZktwSP2LYeKVNFp0TpMLiO2dW06PQlMLLR1gQqYsid2IzlLXoeOp03sd8PaPC7nmhZMfXbESvydMHNqzzjm2STLcHY4dnAHBVuNTg8RI04uwco"/>
+</div>
+<div>
+<p class="text-sm font-bold">Minimalist Chronograph</p>
+<p class="text-[10px] text-slate-400 leading-none">SKU: WATCH-102</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">Accessories</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-bold">42 in stock</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">$129.00</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-700 flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Black professional headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGM91N3tjZ04taMIhlib74gsmSj7FAH_CG9YtE3ukqT3PX2c0kquMeCTA1pQ_hHUps6MkcI5OyP64Lzqp6vFo6R9GkpI8OXE2bn893otV1eSOwvROXeIOrXKiEG0TNILpv_k4vyX-6ffM0QUtu23r40ynpOqD1Cxaz2xabN_hTpxBQw1XpUbpINSvvGt8DyQxl5qLbj_cL48QDTN_yp4e0XVo_G_1HQeboJQJ_O_lW88hz17J-A0e2_NlbUhICe4-2BkbaS96cIA8"/>
+</div>
+<div>
+<p class="text-sm font-bold">Noise-Cancelling Headphones</p>
+<p class="text-[10px] text-slate-400 leading-none">SKU: AUDIO-882</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">Electronics</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-[10px] font-bold">12 in stock</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">$249.99</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-700 flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Red athletic sports sneakers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6UW7XLA0c5QFzp7E3dyrk3FzvNNDvnv-r7rNbnemzhfAc-dzV6-XGv1EKA4_UK2JFoWL65ECGPc57Hx4MR4n5kKQ5DPGxkqFHRgtaDKDwdyM9TDQaJ20lz7leEKDIDwXPIMI7vkjbr89xT_XrZrUZIbsMvT9M9Aj4M8p1TH6zdJKZ3IBNyD_mqgSKKejLpBnsJ5gIwAxl0ufoD4-a_HS4YFBvq70qD8eBmrWClqkqBjVr1tn7rpjiSH_HXFPCeJ1WUMMokTuorFE"/>
+</div>
+<div>
+<p class="text-sm font-bold">Ultra Boost Runner X</p>
+<p class="text-[10px] text-slate-400 leading-none">SKU: SHOE-551</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">Footwear</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-bold">2 left</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-medium">$180.00</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

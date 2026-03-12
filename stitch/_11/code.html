@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#065bf9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Корзина - Ozon Style</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-[1200px] mx-auto px-4 lg:px-10 py-3 flex items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shopping_bag</span>
+<h2 class="text-2xl font-bold leading-tight tracking-tight hidden md:block">OZON</h2>
+</div>
+<div class="hidden lg:flex items-center bg-primary rounded-lg px-4 py-2 text-white cursor-pointer hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined mr-2">menu</span>
+<span class="font-semibold text-sm">Каталог</span>
+</div>
+</div>
+<div class="flex-1 max-w-2xl relative">
+<input class="w-full h-10 pl-4 pr-12 rounded-lg border-2 border-primary focus:outline-none bg-white dark:bg-slate-800 dark:border-slate-700" placeholder="Искать на Ozon" type="text"/>
+<button class="absolute right-0 top-0 h-full w-12 flex items-center justify-center bg-primary text-white rounded-r-sm">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-center cursor-pointer group">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400 group-hover:text-primary">person</span>
+<span class="text-[11px] mt-1">Войти</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer group">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400 group-hover:text-primary">favorite</span>
+<span class="text-[11px] mt-1">Избранное</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer group text-primary">
+<div class="relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white dark:border-slate-900">0</span>
+</div>
+<span class="text-[11px] mt-1">Корзина</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto w-full px-4 lg:px-10 py-8">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Left Side: Main Content (Empty State) -->
+<div class="flex-1 bg-white dark:bg-slate-900 rounded-xl p-8 md:p-16 shadow-sm flex flex-col items-center justify-center text-center">
+<div class="w-64 h-64 mb-8 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center relative overflow-hidden">
+<!-- Placeholder for Illustration -->
+<div class="absolute inset-0 opacity-10 bg-gradient-to-br from-primary to-transparent"></div>
+<span class="material-symbols-outlined text-9xl text-slate-300 dark:text-slate-700">shopping_cart_off</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">Корзина пуста</h1>
+<p class="text-slate-500 dark:text-slate-400 mb-8 max-w-sm">
+                            Посмотрите наши предложения, чтобы найти то, что вам нужно
+                        </p>
+<button class="bg-primary text-white font-bold py-3 px-10 rounded-lg hover:bg-primary/90 transition-all transform active:scale-95 shadow-lg shadow-primary/20">
+                            Перейти в каталог
+                        </button>
+</div>
+<!-- Right Side: Mini Widget (Optional) -->
+<div class="w-full md:w-80 flex flex-col gap-4">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold text-lg mb-4">Ваша корзина</h3>
+<div class="flex justify-between mb-2">
+<span class="text-slate-500">Товары (0)</span>
+<span class="font-medium">0 ₽</span>
+</div>
+<div class="flex justify-between mb-4 border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="font-bold text-lg">Итого</span>
+<span class="font-bold text-lg">0 ₽</span>
+</div>
+<button class="w-full bg-slate-100 dark:bg-slate-800 text-slate-400 font-bold py-3 rounded-lg cursor-not-allowed">
+                                Перейти к оформлению
+                            </button>
+</div>
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-wider">Бесплатная доставка</p>
+<p class="text-sm text-slate-600 dark:text-slate-400">Для заказов от 2500 ₽ в пункты выдачи</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendation Section -->
+<section class="mt-16">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold">Возможно, вам понравится</h2>
+<button class="text-primary font-semibold flex items-center gap-1 hover:underline">
+                            Все рекомендации <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<!-- Product Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative aspect-square">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800" data-alt="Blue modern smartphone front view"></div>
+<button class="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl text-slate-600">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-bold text-slate-900 dark:text-slate-100">15 990 ₽</span>
+<span class="text-sm text-slate-400 line-through">19 990 ₽</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Смартфон Horizon Pro 128GB Blue</p>
+<button class="w-full border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">
+                                    В корзину
+                                </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative aspect-square">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800" data-alt="Wireless white headphones studio shot"></div>
+<button class="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl text-slate-600">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-bold text-slate-900 dark:text-slate-100">2 490 ₽</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Наушники беспроводные SoundMaster Air</p>
+<button class="w-full border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">
+                                    В корзину
+                                </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative aspect-square">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800" data-alt="Electric silver tea kettle"></div>
+<button class="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl text-slate-600">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-bold text-slate-900 dark:text-slate-100">1 990 ₽</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Электрочайник GlassTech Smart 1.7L</p>
+<button class="w-full border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">
+                                    В корзину
+                                </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer">
+<div class="relative aspect-square">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800" data-alt="Urban black backpack minimalist design"></div>
+<button class="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl text-slate-600">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-bold text-slate-900 dark:text-slate-100">3 200 ₽</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Рюкзак городской UrbanGo 20L Black</p>
+<button class="w-full border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">
+                                    В корзину
+                                </button>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer hidden lg:block">
+<div class="relative aspect-square">
+<div class="w-full h-full bg-slate-100 dark:bg-slate-800" data-alt="Portable mechanical keyboard white"></div>
+<button class="absolute top-2 right-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xl text-slate-600">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-lg font-bold text-slate-900 dark:text-slate-100">5 750 ₽</span>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 mb-3">Клавиатура механическая KeyPro RGB</p>
+<button class="w-full border-2 border-primary text-primary font-bold py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm">
+                                    В корзину
+                                </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around py-3 px-2 z-50">
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] mt-1">Главная</span>
+</div>
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px] mt-1">Поиск</span>
+</div>
+<div class="flex flex-col items-center text-primary">
+<div class="relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute -top-1.5 -right-1.5 bg-primary text-white text-[8px] font-bold px-1 rounded-full border border-white">0</span>
+</div>
+<span class="text-[10px] mt-1 font-semibold">Корзина</span>
+</div>
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-[10px] mt-1">Избранное</span>
+</div>
+<div class="flex flex-col items-center text-slate-500">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] mt-1">Кабинет</span>
+</div>
+</nav>
+<footer class="mt-auto py-10 bg-slate-100 dark:bg-slate-800/50 text-slate-500 text-sm text-center px-4">
+<p>© 1998 – 2024 ООО «Интернет Решения». Все права защищены.</p>
+</footer>
+</div>
+</div>
+</body></html>
